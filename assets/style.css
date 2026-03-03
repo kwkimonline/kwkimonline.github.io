@@ -140,8 +140,11 @@ a:hover{ text-decoration:underline; }
   margin: 0;
   color: var(--muted);
 }
-.paperDesc{ display:none; }
+/* .paperDesc{ display:none; } */
 /* .paperDesc a{ font-weight: 700; } */
+/* hard kill any PDF link text lines inside publications */
+.paperDesc{ display:none !important; }
+.paper a[href$=".pdf"], .paper a[href*="/pdf/"]{ display:none !important; }
 
 /* 썸네일 완전 제거(혹시 HTML에 남아있어도 숨김) */
 .thumb{ display:none !important; }
