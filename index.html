@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Kunwoong Kim</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <main class="page">
+
+    <!-- Top: name + bio + links + oval photo -->
+    <section class="header">
+      <div>
+        <h1 class="name">Kunwoong Kim</h1>
+
+        <p class="bio">
+          Hi! I’m a postdoctoral researcher in KAIST AI, working with
+          <a href="https://alinlab.kaist.ac.kr" target="_blank" rel="noopener">Jinwoo Shin</a>.
+          Before that, I completed my Ph.D. in Statistics at Seoul National University, advised by
+          <a href="https://idea.snu.ac.kr" target="_blank" rel="noopener">Yongdai Kim</a>.
+          My research interest lies in trustworthy AI, vision-language models, and machine learning theory.
+        </p>
+
+        <div class="links">
+          <a href="mailto:kunwoong.kim@kaist.ac.kr">Email</a>
+          <span class="sep">/</span>
+          <!-- Put your CV somewhere (e.g., Google Drive/Dropbox) and paste the URL here -->
+          <a href="https://YOUR_CV_LINK_HERE" target="_blank" rel="noopener">CV</a>
+          <span class="sep">/</span>
+          <!-- Replace with your Google Scholar profile URL if you want -->
+          <a href="https://scholar.google.com/" target="_blank" rel="noopener">Scholar</a>
+          <span class="sep">/</span>
+          <a href="https://github.com/kwkimonline" target="_blank" rel="noopener">GitHub</a>
+          <span class="sep">/</span>
+          <a href="https://www.linkedin.com/in/kunwoong-kim" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="photoWrap">
+        <div class="photoOval">
+          <img src="assets/kwkim_medium.jpg" alt="profile photo"
+               onerror="this.remove(); document.getElementById('ph').style.display='flex';"/>
+          <div id="ph" class="photoPlaceholder" style="display:none;">Upload assets/profile.jpg</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activities -->
+    <section class="section">
+      <h2>Activities</h2>
+      <ul class="activities">
+        <li><span class="date">03-2026:</span> Starting as a Postdoctoral Researcher at KAIST AI.</li>
+        <li><span class="date">02-2026:</span> Completed Ph.D. in Statistics at Seoul National University.</li>
+        <li><span class="date">07-2025:</span> “Fair Clustering via Alignment” accepted to ICML 2025.</li>
+        <li><span class="date">05-2025:</span> “Fair Representation Learning for Continuous Sensitive Attributes …” appeared in TPAMI.</li>
+      </ul>
+    </section>
+
+    <!-- Research -->
+    <section class="section">
+      <h2>Research</h2>
+
+      <div class="researchList">
+
+        <article class="paper">
+          <div class="thumb">
+            <img src="assets/thumb_fca.png" alt="thumbnail"
+                 onerror="this.remove(); this.parentElement.textContent='Upload assets/thumb_fca.png';"/>
+          </div>
+          <div>
+            <div class="paperTitle">
+              <a href="https://arxiv.org/abs/2501.02793" target="_blank" rel="noopener">Fair Clustering via Alignment</a>
+            </div>
+            <p class="paperAuthors">Kunwoong Kim, Jihu Lee, Sangchul Park, Yongdai Kim</p>
+            <p class="paperVenue">ICML 2025</p>
+            <p class="paperDesc">
+              Fair clustering via alignment between representations and sensitive structure.
+              <a href="https://github.com/kwkimonline/FCA" target="_blank" rel="noopener">[code]</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="paper">
+          <div class="thumb">
+            <img src="assets/thumb_frem.png" alt="thumbnail"
+                 onerror="this.remove(); this.parentElement.textContent='Upload assets/thumb_frem.png';"/>
+          </div>
+          <div>
+            <div class="paperTitle">
+              <a href="https://ieeexplore.ieee.org/document/10560329" target="_blank" rel="noopener">
+                Fair Representation Learning for Continuous Sensitive Attributes using Expectation of Integral Probability Metrics
+              </a>
+            </div>
+            <p class="paperAuthors">Insung Kong*, Kunwoong Kim*, Yongdai Kim (*: co-first author)</p>
+            <p class="paperVenue">TPAMI 2025</p>
+            <p class="paperDesc">
+              Fair representation learning for continuous sensitive attributes via expectation of IPMs.
+              <a href="https://github.com/kwkimonline/FREM" target="_blank" rel="noopener">[code]</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="paper">
+          <div class="thumb">
+            <img src="assets/thumb_ftm.png" alt="thumbnail"
+                 onerror="this.remove(); this.parentElement.textContent='Upload assets/thumb_ftm.png';"/>
+          </div>
+          <div>
+            <div class="paperTitle">
+              <a href="https://openreview.net/forum?id=dHljjaNHh1" target="_blank" rel="noopener">Fairness Through Matching</a>
+            </div>
+            <p class="paperAuthors">Kunwoong Kim, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
+            <p class="paperVenue">TMLR 2024</p>
+            <p class="paperDesc">
+              A matching-based framework for fairness.
+              <a href="https://github.com/kwkimonline/FTM" target="_blank" rel="noopener">[code]</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="footer">
+        Tip: Put your CV link above. Upload a photo as <code>assets/profile.jpg</code>.
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
