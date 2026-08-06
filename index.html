@@ -6,6 +6,72 @@
   <meta name="description" content="Kunwoong Kim — postdoctoral researcher at KAIST AI working on trustworthy AI, vision-language models, and machine learning theory."/>
   <title>Kunwoong Kim</title>
   <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    /* Publication tabs */
+    .pubTabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 20px;
+    }
+
+    .pubTab {
+      appearance: none;
+      padding: 7px 15px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    .pubTab:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .pubTab[aria-selected="true"] {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .pubTab:focus-visible {
+      outline: 3px solid rgba(40, 93, 76, .24);
+      outline-offset: 3px;
+    }
+
+    .pubTab .count {
+      margin-left: 6px;
+      font-weight: 500;
+      opacity: .6;
+    }
+
+    .pubTab[aria-selected="true"] .count { opacity: .75; }
+
+    .pubPanel[hidden] { display: none; }
+
+    /* titles without a link (e.g. preprints under review) */
+    .paperTitle > .titleText {
+      grid-row: 1;
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 520px) {
+      .pubTab { padding: 6px 12px; font-size: 12px; }
+      .paperTitle > .titleText { font-size: 15px; }
+    }
+  </style>
 </head>
 <body>
   <main class="page">
@@ -56,55 +122,20 @@
         <span class="sectionRule" aria-hidden="true"></span>
       </div>
 
-        <div class="researchList">
+      <div class="pubTabs" role="tablist" aria-label="Publication categories">
+        <button class="pubTab" type="button" role="tab" id="tab-conf" aria-controls="panel-conf" aria-selected="true">
+          Conference / Workshop<span class="count">8</span>
+        </button>
+        <button class="pubTab" type="button" role="tab" id="tab-journal" aria-controls="panel-journal" aria-selected="false">
+          Journal<span class="count">4</span>
+        </button>
+        <button class="pubTab" type="button" role="tab" id="tab-preprint" aria-controls="panel-preprint" aria-selected="false">
+          Preprint<span class="count">8</span>
+        </button>
+      </div>
 
-        <!-- <article class="paper">
-            <div>
-            <div class="paperTitle">
-                Blockwise-Fairness Gap Penalty for Subgroup-Fair Clustering
-                <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors">Kyungseon Lee, Hankyo Jeong, <b>Kunwoong Kim</b>, Kwanho Lee, Yongdai Kim</p>
-            <p class="paperDesc"></p>
-            </div>
-        </article>
-
-        <article class="paper">
-            <div>
-            <div class="paperTitle">
-                Approximating the Posterior Distribution of Bayesian Deep Neural Networks by a Deep Neural Network
-                <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors">Sehyun Park, Yunseop Shin, <b>Kunwoong Kim</b>, Jihu Lee, Yongdai Kim</p>
-            <p class="paperDesc"></p>
-            </div>
-        </article> -->
-
-        <!-- <article class="paper">
-            <div>
-            <div class="paperTitle">
-                <a href="https://arxiv.org/abs/2504.18897" target="_blank" rel="noopener">
-                ReLU Integral Probability Metric and its Applications
-                </a>
-                <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors">Yuha Park, <b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://arxiv.org/abs/2504.18897" target="_blank" rel="noopener">[PDF]</a></p>
-            </div>
-        </article>
-
-        <article class="paper">
-            <div>
-            <div class="paperTitle">
-                <a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">
-                Fair Bayesian Model-based Clustering
-                </a>
-                <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors">Jihu Lee*, <b>Kunwoong Kim</b>*, Hankyo Jeong, Yongdai Kim (*: co-first author)</p>
-            <p class="paperDesc"><a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">[PDF]</a></p>
-            </div>
-        </article> -->
+      <!-- ============ Conference / Workshop ============ -->
+      <div class="researchList pubPanel" id="panel-conf" role="tabpanel" aria-labelledby="tab-conf">
 
         <article class="paper">
             <div>
@@ -118,34 +149,6 @@
             <p class="paperDesc"><a href="https://arxiv.org/pdf/2606.14106" target="_blank" rel="noopener">[PDF]</a></p>
             </div>
         </article>
-
-        <!-- Domestic publications
-        <article class="paper">
-            <div>
-            <div class="paperTitle">
-                <a href="https://www.e-jara.org/journal/view.html?pn=vol&uid=1522&vmd=Full" target="_blank" rel="noopener">
-                On Measuring the Quality of Group Fairness
-                </a>
-                <span class="paperVenue"> · Journal of Artificial Intelligence Research and Applications 2024</span>
-            </div>
-            <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://www.e-jara.org/journal/view.html?pn=vol&uid=1522&vmd=Full" target="_blank" rel="noopener">[PDF]</a></p>
-            </div>
-        </article>
-
-        <article class="paper">
-            <div>
-            <div class="paperTitle">
-                <a href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">
-                Purifying Noisy Labels by Adversarial Search and SSL
-                </a>
-                <span class="paperVenue"> · Journal of Artificial Intelligence Research and Applications 2024</span>
-            </div>
-            <p class="paperAuthors">Dongha Kim, Yongchan Choi, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">[PDF]</a></p>
-            </div>
-        </article>
-        -->
 
         <article class="paper">
             <div>
@@ -202,32 +205,6 @@
         <article class="paper">
             <div>
             <div class="paperTitle">
-                <a href="https://openreview.net/pdf?id=dHljjaNHh1" target="_blank" rel="noopener">
-                Fairness Through Matching
-                </a>
-                <span class="paperVenue"> · Transactions on Machine Learning Research (TMLR) 2025</span>
-            </div>
-            <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://openreview.net/forum?id=dHljjaNHh1" target="_blank" rel="noopener">[PDF]</a></p>
-            </div>
-        </article>
-
-        <article class="paper">
-            <div>
-            <div class="paperTitle">
-                <a href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">
-                Fair Representation Learning for Continuous Sensitive Attributes using Expectation of Integral Probability Metrics
-                </a>
-                <span class="paperVenue"> · IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2025</span>
-            </div>
-            <p class="paperAuthors">Insung Kong*, <b>Kunwoong Kim</b>*, Yongdai Kim (*: co-first author)</p>
-            <p class="paperDesc"><a href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">[PDF]</a></p>
-            </div>
-        </article>
-
-        <article class="paper">
-            <div>
-            <div class="paperTitle">
                 <a href="https://proceedings.mlr.press/v235/kim24h.html" target="_blank" rel="noopener">
                 ODIM: Outlier Detection via Likelihood of Under-Fitted Generative Models
                 </a>
@@ -254,19 +231,6 @@
         <article class="paper">
             <div>
             <div class="paperTitle">
-                <a href="https://onlinelibrary.wiley.com/doi/10.1002/sam.11616" target="_blank" rel="noopener">
-                L<sub>q</sub> Regularization for Fair Artificial Intelligence Robust to Covariate Shift
-                </a>
-                <span class="paperVenue"> · Statistical Analysis and Data Mining 2023</span>
-            </div>
-            <p class="paperAuthors">Seonghyeon Kim, Sara Kim, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://onlinelibrary.wiley.com/doi/10.1002/sam.11616" target="_blank" rel="noopener">[PDF]</a></p>
-            </div>
-        </article>
-
-        <article class="paper">
-            <div>
-            <div class="paperTitle">
                 <a href="https://proceedings.mlr.press/v162/kim22b" target="_blank" rel="noopener">
                 Learning Fair Representation with a Parametric Integral Probability Metric
                 </a>
@@ -274,6 +238,78 @@
             </div>
             <p class="paperAuthors">Dongha Kim, <b>Kunwoong Kim</b>, Insung Kong, Ilsang Ohn, Yongdai Kim</p>
             <p class="paperDesc"><a href="https://proceedings.mlr.press/v162/kim22b" target="_blank" rel="noopener">[PDF]</a></p>
+            </div>
+        </article>
+
+      </div>
+
+      <!-- ============ Journal ============ -->
+      <div class="researchList pubPanel" id="panel-journal" role="tabpanel" aria-labelledby="tab-journal" hidden>
+
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <a href="https://openreview.net/pdf?id=dHljjaNHh1" target="_blank" rel="noopener">
+                Fairness Through Matching
+                </a>
+                <span class="paperVenue"> · Transactions on Machine Learning Research (TMLR) 2025</span>
+            </div>
+            <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
+            <p class="paperDesc"><a href="https://openreview.net/forum?id=dHljjaNHh1" target="_blank" rel="noopener">[PDF]</a></p>
+            </div>
+        </article>
+
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <a href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">
+                Fair Representation Learning for Continuous Sensitive Attributes using Expectation of Integral Probability Metrics
+                </a>
+                <span class="paperVenue"> · IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2025</span>
+            </div>
+            <p class="paperAuthors">Insung Kong*, <b>Kunwoong Kim</b>*, Yongdai Kim (*: co-first author)</p>
+            <p class="paperDesc"><a href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">[PDF]</a></p>
+            </div>
+        </article>
+
+        <!-- Domestic publications
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <a href="https://www.e-jara.org/journal/view.html?pn=vol&uid=1522&vmd=Full" target="_blank" rel="noopener">
+                On Measuring the Quality of Group Fairness
+                </a>
+                <span class="paperVenue"> · Journal of Artificial Intelligence Research and Applications 2024</span>
+            </div>
+            <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
+            <p class="paperDesc"><a href="https://www.e-jara.org/journal/view.html?pn=vol&uid=1522&vmd=Full" target="_blank" rel="noopener">[PDF]</a></p>
+            </div>
+        </article>
+
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <a href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">
+                Purifying Noisy Labels by Adversarial Search and SSL
+                </a>
+                <span class="paperVenue"> · Journal of Artificial Intelligence Research and Applications 2024</span>
+            </div>
+            <p class="paperAuthors">Dongha Kim, Yongchan Choi, <b>Kunwoong Kim</b>, Yongdai Kim</p>
+            <p class="paperDesc"><a href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">[PDF]</a></p>
+            </div>
+        </article>
+        -->
+
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <a href="https://onlinelibrary.wiley.com/doi/10.1002/sam.11616" target="_blank" rel="noopener">
+                L<sub>q</sub> Regularization for Fair Artificial Intelligence Robust to Covariate Shift
+                </a>
+                <span class="paperVenue"> · Statistical Analysis and Data Mining 2023</span>
+            </div>
+            <p class="paperAuthors">Seonghyeon Kim, Sara Kim, <b>Kunwoong Kim</b>, Yongdai Kim</p>
+            <p class="paperDesc"><a href="https://onlinelibrary.wiley.com/doi/10.1002/sam.11616" target="_blank" rel="noopener">[PDF]</a></p>
             </div>
         </article>
 
@@ -290,9 +326,104 @@
             </div>
         </article>
 
+      </div>
 
+      <!-- ============ Preprint ============ -->
+      <div class="researchList pubPanel" id="panel-preprint" role="tabpanel" aria-labelledby="tab-preprint" hidden>
 
-        </div>
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <span class="titleText">Deep Barycentric Regression for Optimal Transport Map Estimation and its Statistical Optimality</span>
+                <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
+            <p class="paperDesc"></p>
+            </div>
+        </article>
+
+        <!-- <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <span class="titleText">DoG: Sniffing Out Overconfidence in LLM Agents via Post-hoc Trajectory Restructuring</span>
+                <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Hyunjun Jeon, Dongha Lim, <b>Kunwoong Kim</b>, Daewon Choi, Jinwoo Shin</p>
+            <p class="paperDesc"></p>
+            </div>
+        </article> -->
+
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <span class="titleText">What Drives the Inlier-Memorization Effect? A Theory of Outlier Detection via Early Training Dynamics</span>
+                <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors"><b>Kunwoong Kim</b>, Dongha Kim</p>
+            <p class="paperDesc"></p>
+            </div>
+        </article>
+        
+        <!-- <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <span class="titleText">COVAriance-Induced Fairness Gap Penalty for Subgroup-Fair Clustering</span>
+                <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Kyungseon Lee, Hankyo Jeong, <b>Kunwoong Kim</b>, Kwanho Lee, Yongdai Kim</p>
+            <p class="paperDesc"></p>
+            </div>
+        </article> -->
+
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <span class="titleText">Approximating the Posterior Distribution of Bayesian Deep Neural Networks by a Deep Neural Network</span>
+                <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Sehyun Park, Yunseop Shin, <b>Kunwoong Kim</b>, Jihu Lee, Yongdai Kim</p>
+            <p class="paperDesc"></p>
+            </div>
+        </article>
+
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <a href="https://arxiv.org/abs/2504.18897" target="_blank" rel="noopener">
+                ReLU Integral Probability Metric and its Applications
+                </a>
+                <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Yuha Park, <b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
+            <p class="paperDesc"><a href="https://arxiv.org/abs/2504.18897" target="_blank" rel="noopener">[PDF]</a></p>
+            </div>
+        </article>
+
+        <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">
+                Fair Bayesian Model-based Clustering
+                </a>
+                <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Jihu Lee*, <b>Kunwoong Kim</b>*, Hankyo Jeong, Yongdai Kim (*: co-first author)</p>
+            <p class="paperDesc"><a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">[PDF]</a></p>
+            </div>
+        </article>
+
+        <!-- <article class="paper">
+            <div>
+            <div class="paperTitle">
+                <span class="titleText">Internal Fairness for Artificial Intelligence</span>
+                <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Sehyun Park*, <b>Kunwoong Kim</b>*, Sara Kim, Kyusang Yu, Yongdai Kim (*: co-first author)</p>
+            <p class="paperDesc"></p>
+            </div>
+        </article> -->
+
+      </div>
 
       <!-- <div class="footer">
         Tip: Put your CV link above. Upload a photo as <code>assets/profile.jpg</code>.
@@ -300,5 +431,31 @@
     </section>
 
   </main>
+
+  <script>
+    (function () {
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.pubTab'));
+
+      function select(tab) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+        });
+      }
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { select(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (!step) return;
+          e.preventDefault();
+          var next = tabs[(i + step + tabs.length) % tabs.length];
+          next.focus();
+          select(next);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
