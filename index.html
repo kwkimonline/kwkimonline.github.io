@@ -12,18 +12,20 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       gap: 12px 16px;
       margin: 0 0 20px;
     }
 
-    /* Publication tabs */
+    /* Publication tabs (shown only in the All scope) */
     .pubTabs {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin: 0;
     }
+
+    .pubTabs[hidden] { display: none; }
 
     .pubTab {
       appearance: none;
@@ -78,10 +80,11 @@
       transform: none;
     }
 
-    /* Scope toggle */
+    /* Scope toggle — margin-left:auto keeps it in place when the tabs hide */
     .modeToggle {
       display: inline-flex;
       gap: 2px;
+      margin-left: auto;
       padding: 3px;
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -198,9 +201,12 @@
       </div>
 
       <!--
-        Scope control: papers marked data-selected="true" appear under "Selected";
-        every paper appears under "All". To promote or demote a paper, flip that one
-        attribute on its <article class="paper"> element — no JS changes needed.
+        Scope toggle:
+          Selected — one merged list of every paper marked data-selected="true",
+                     newest first by data-year; the category tabs are hidden.
+          All      — the three category tabs, each listing everything in it.
+        To promote or demote a paper, flip data-selected on its <article class="paper">.
+        data-year only drives the ordering of the merged Selected list.
       -->
       <div class="pubToolbar">
         <div class="pubTabs" role="tablist" aria-label="Publication categories">
@@ -221,10 +227,15 @@
         </div>
       </div>
 
-      <!-- ============ Conference / Workshop ============ -->
-      <div class="researchList pubPanel" id="panel-conf" role="tabpanel" aria-labelledby="tab-conf">
+      <!-- ============ Selected (merged list, filled by the script) ============ -->
+      <div class="researchList pubPanel" id="panel-selected" aria-label="Selected publications">
+        <p class="pubEmpty" hidden>No papers are marked as selected yet. Switch to All to see everything.</p>
+      </div>
 
-        <article class="paper" data-selected="true">
+      <!-- ============ Conference / Workshop ============ -->
+      <div class="researchList pubPanel" id="panel-conf" role="tabpanel" aria-labelledby="tab-conf" hidden>
+
+        <article class="paper" data-selected="true" data-year="2026">
             <div>
             <div class="paperTitle">
                 <a href="https://arxiv.org/abs/2606.14106" target="_blank" rel="noopener">
@@ -237,7 +248,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <a href="https://openreview.net/forum?id=17UDRTRLmp" target="_blank" rel="noopener">
@@ -250,7 +261,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <a href="https://openreview.net/forum?id=sIjFXzEOOH" target="_blank" rel="noopener">
@@ -263,7 +274,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <a href="https://ojs.aaai.org/index.php/AAAI/article/view/39663/43624" target="_blank" rel="noopener">
@@ -276,7 +287,7 @@
             </div>
         </article>
 
-        <article class="paper" data-selected="true">
+        <article class="paper" data-selected="true" data-year="2025">
             <div>
             <div class="paperTitle">
                 <a href="https://proceedings.mlr.press/v267/kim25t" target="_blank" rel="noopener">
@@ -289,7 +300,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-year="2024">
             <div>
             <div class="paperTitle">
                 <a href="https://proceedings.mlr.press/v235/kim24h.html" target="_blank" rel="noopener">
@@ -302,7 +313,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-year="2024">
             <div>
             <div class="paperTitle">
                 <a href="https://ojs.aaai.org/index.php/AAAI/article/view/29209" target="_blank" rel="noopener">
@@ -315,7 +326,7 @@
             </div>
         </article>
 
-        <article class="paper" data-selected="true">
+        <article class="paper" data-selected="true" data-year="2022">
             <div>
             <div class="paperTitle">
                 <a href="https://proceedings.mlr.press/v162/kim22b" target="_blank" rel="noopener">
@@ -328,14 +339,14 @@
             </div>
         </article>
 
-        <p class="pubEmpty" hidden>Nothing selected in this category. Switch to All to see every paper.</p>
+        <p class="pubEmpty" hidden>No papers listed in this category yet.</p>
 
       </div>
 
       <!-- ============ Journal ============ -->
       <div class="researchList pubPanel" id="panel-journal" role="tabpanel" aria-labelledby="tab-journal" hidden>
 
-        <article class="paper">
+        <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <a href="https://doi.org/10.1016/j.neunet.2026.109589" target="_blank" rel="noopener">
@@ -348,7 +359,7 @@
             </div>
         </article>
 
-        <article class="paper" data-selected="true">
+        <article class="paper" data-selected="true" data-year="2025">
             <div>
             <div class="paperTitle">
                 <a href="https://openreview.net/pdf?id=dHljjaNHh1" target="_blank" rel="noopener">
@@ -361,7 +372,7 @@
             </div>
         </article>
 
-        <article class="paper" data-selected="true">
+        <article class="paper" data-selected="true" data-year="2025">
             <div>
             <div class="paperTitle">
                 <a href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">
@@ -374,7 +385,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-year="2024">
             <div>
             <div class="paperTitle">
                 <a href="https://www.e-jara.org/journal/view.html?pn=vol&uid=1522&vmd=Full" target="_blank" rel="noopener">
@@ -387,7 +398,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-year="2024">
             <div>
             <div class="paperTitle">
                 <a href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">
@@ -399,9 +410,9 @@
             <p class="paperDesc"><a href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">[PDF]</a></p>
             </div>
         </article>
-       
 
-        <article class="paper">
+
+        <article class="paper" data-year="2023">
             <div>
             <div class="paperTitle">
                 <a href="https://onlinelibrary.wiley.com/doi/10.1002/sam.11616" target="_blank" rel="noopener">
@@ -414,7 +425,7 @@
             </div>
         </article>
 
-        <article class="paper" data-selected="true">
+        <article class="paper" data-selected="true" data-year="2022">
             <div>
             <div class="paperTitle">
                 <a href="https://doi.org/10.1016/j.neunet.2022.07.027" target="_blank" rel="noopener">
@@ -427,14 +438,14 @@
             </div>
         </article>
 
-        <p class="pubEmpty" hidden>Nothing selected in this category. Switch to All to see every paper.</p>
+        <p class="pubEmpty" hidden>No papers listed in this category yet.</p>
 
       </div>
 
       <!-- ============ Preprint ============ -->
       <div class="researchList pubPanel" id="panel-preprint" role="tabpanel" aria-labelledby="tab-preprint" hidden>
 
-        <article class="paper" data-selected="true">
+        <article class="paper" data-selected="true" data-year="2026">
             <div>
             <div class="paperTitle">
                 <span class="titleText">Deep Barycentric Regression for Optimal Transport Map Estimation and its Statistical Optimality</span>
@@ -445,7 +456,7 @@
             </div>
         </article>
 
-        <!-- <article class="paper">
+        <!-- <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <span class="titleText">DoG: Sniffing Out Overconfidence in LLM Agents via Post-hoc Trajectory Restructuring</span>
@@ -456,7 +467,7 @@
             </div>
         </article> -->
 
-        <article class="paper" data-selected="true">
+        <article class="paper" data-selected="true" data-year="2026">
             <div>
             <div class="paperTitle">
                 <span class="titleText">What Drives the Inlier-Memorization Effect? A Theory of Outlier Detection via Early Training Dynamics</span>
@@ -467,7 +478,7 @@
             </div>
         </article>
 
-        <!-- <article class="paper">
+        <!-- <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <span class="titleText">COVAriance-Induced Fairness Gap Penalty for Subgroup-Fair Clustering</span>
@@ -478,7 +489,7 @@
             </div>
         </article> -->
 
-        <article class="paper">
+        <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <span class="titleText">Approximating the Posterior Distribution of Bayesian Deep Neural Networks by a Deep Neural Network</span>
@@ -489,7 +500,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">
@@ -502,7 +513,7 @@
             </div>
         </article>
 
-        <!-- <article class="paper">
+        <!-- <article class="paper" data-year="2026">
             <div>
             <div class="paperTitle">
                 <span class="titleText">Internal Fairness for Artificial Intelligence</span>
@@ -513,7 +524,7 @@
             </div>
         </article> -->
 
-        <p class="pubEmpty" hidden>Nothing selected in this category. Switch to All to see every paper.</p>
+        <p class="pubEmpty" hidden>No papers listed in this category yet.</p>
 
       </div>
 
@@ -529,41 +540,49 @@
     (function () {
       var tabs = Array.prototype.slice.call(document.querySelectorAll('.pubTab'));
       var modeBtns = Array.prototype.slice.call(document.querySelectorAll('.modeBtn'));
+      var tablist = document.querySelector('.pubTabs');
+      var selPanel = document.getElementById('panel-selected');
+      var selEmpty = selPanel.querySelector('.pubEmpty');
       var mode = 'selected';
 
       function panelOf(tab) {
         return document.getElementById(tab.getAttribute('aria-controls'));
       }
 
-      function papersIn(panel) {
-        return Array.prototype.slice.call(panel.querySelectorAll('.paper'));
+      function papersIn(root) {
+        return Array.prototype.slice.call(root.querySelectorAll('.paper'));
       }
 
-      function visibleCount(tab) {
-        return Number(tab.querySelector('.count').textContent) || 0;
+      function yearOf(paper) {
+        return Number(paper.getAttribute('data-year')) || 0;
       }
 
-      /* Show/hide papers per scope, refresh counts, and mark empty categories. */
-      function applyScope() {
+      /* Merged Selected view: every data-selected paper from all three categories,
+         newest first, ties broken by the order they appear in the source markup. */
+      function buildSelected() {
+        papersIn(selPanel).forEach(function (old) { old.remove(); });
+
+        var picked = [];
         tabs.forEach(function (tab) {
-          var panel = panelOf(tab);
-          var shown = 0;
-
-          papersIn(panel).forEach(function (paper) {
-            var keep = mode === 'all' || paper.getAttribute('data-selected') === 'true';
-            paper.hidden = !keep;
-            if (keep) shown++;
+          papersIn(panelOf(tab)).forEach(function (paper) {
+            if (paper.getAttribute('data-selected') === 'true') {
+              picked.push({ node: paper, year: yearOf(paper), i: picked.length });
+            }
           });
-
-          tab.querySelector('.count').textContent = shown;
-          tab.disabled = shown === 0;
-
-          var empty = panel.querySelector('.pubEmpty');
-          if (empty) empty.hidden = shown > 0;
         });
+
+        picked.sort(function (a, b) { return b.year - a.year || a.i - b.i; });
+
+        picked.forEach(function (item) {
+          var clone = item.node.cloneNode(true);
+          clone.hidden = false;
+          selPanel.insertBefore(clone, selEmpty);
+        });
+
+        selEmpty.hidden = picked.length > 0;
       }
 
-      function select(tab) {
+      function selectTab(tab) {
         tabs.forEach(function (t) {
           var on = t === tab;
           t.setAttribute('aria-selected', on ? 'true' : 'false');
@@ -571,51 +590,73 @@
         });
       }
 
-      function current() {
+      function currentTab() {
         return tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0] || tabs[0];
       }
 
-      function setMode(next) {
-        mode = next;
+      function render() {
+        var merged = mode === 'selected';
+
         modeBtns.forEach(function (b) {
           b.setAttribute('aria-pressed', b.getAttribute('data-mode') === mode ? 'true' : 'false');
         });
-        applyScope();
 
-        /* Keep the open tab if it still has papers; otherwise fall back to the first that does. */
-        var open = current();
-        if (visibleCount(open) === 0) {
-          var fallback = tabs.filter(function (t) { return visibleCount(t) > 0; })[0];
-          if (fallback) open = fallback;
+        tablist.hidden = merged;
+
+        if (merged) {
+          tabs.forEach(function (t) { panelOf(t).hidden = true; });
+          buildSelected();
+          selPanel.hidden = false;
+          return;
         }
-        select(open);
+
+        selPanel.hidden = true;
+
+        tabs.forEach(function (tab) {
+          var papers = papersIn(panelOf(tab));
+          papers.forEach(function (paper) { paper.hidden = false; });
+
+          tab.querySelector('.count').textContent = papers.length;
+          tab.disabled = papers.length === 0;
+
+          var empty = panelOf(tab).querySelector('.pubEmpty');
+          if (empty) empty.hidden = papers.length > 0;
+        });
+
+        var open = currentTab();
+        if (open.disabled) {
+          open = tabs.filter(function (t) { return !t.disabled; })[0] || open;
+        }
+        selectTab(open);
       }
 
       tabs.forEach(function (tab, i) {
         tab.addEventListener('click', function () {
-          if (!tab.disabled) select(tab);
+          if (!tab.disabled) selectTab(tab);
         });
         tab.addEventListener('keydown', function (e) {
           var step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
           if (!step) return;
           e.preventDefault();
 
-          /* Walk to the next tab that has papers in the current scope. */
           var j = i;
           for (var k = 0; k < tabs.length; k++) {
             j = (j + step + tabs.length) % tabs.length;
             if (!tabs[j].disabled) break;
           }
           tabs[j].focus();
-          select(tabs[j]);
+          selectTab(tabs[j]);
         });
       });
 
       modeBtns.forEach(function (btn) {
-        btn.addEventListener('click', function () { setMode(btn.getAttribute('data-mode')); });
+        btn.addEventListener('click', function () {
+          mode = btn.getAttribute('data-mode');
+          render();
+        });
       });
 
-      setMode('selected');
+      render();
     })();
   </script>
 </body>
