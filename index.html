@@ -7,12 +7,22 @@
   <title>Kunwoong Kim</title>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
+    /* Toolbar: category tabs + Selected/All scope toggle */
+    .pubToolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 16px;
+      margin: 0 0 20px;
+    }
+
     /* Publication tabs */
     .pubTabs {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 0 0 20px;
+      margin: 0;
     }
 
     .pubTab {
@@ -42,7 +52,8 @@
       color: #fff;
     }
 
-    .pubTab:focus-visible {
+    .pubTab:focus-visible,
+    .modeBtn:focus-visible {
       outline: 3px solid rgba(40, 93, 76, .24);
       outline-offset: 3px;
     }
@@ -50,12 +61,69 @@
     .pubTab .count {
       margin-left: 6px;
       font-weight: 500;
+      font-variant-numeric: tabular-nums;
       opacity: .6;
     }
 
     .pubTab[aria-selected="true"] .count { opacity: .75; }
 
+    .pubTab[disabled] {
+      opacity: .4;
+      cursor: default;
+    }
+
+    .pubTab[disabled]:hover {
+      border-color: var(--line);
+      color: var(--muted);
+      transform: none;
+    }
+
+    /* Scope toggle */
+    .modeToggle {
+      display: inline-flex;
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .modeBtn {
+      appearance: none;
+      padding: 5px 14px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: .01em;
+      cursor: pointer;
+      transition: color 160ms ease, background-color 160ms ease;
+    }
+
+    .modeBtn:hover { color: var(--accent); }
+
+    .modeBtn[aria-pressed="true"] {
+      background: rgba(40, 93, 76, .10);
+      color: var(--accent);
+    }
+
     .pubPanel[hidden] { display: none; }
+
+    /* papers filtered out by the scope toggle */
+    .paper[hidden] { display: none !important; }
+
+    .pubEmpty {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .pubEmpty[hidden] { display: none; }
 
     /* titles without a link (e.g. preprints under review) */
     .paperTitle > .titleText {
@@ -68,8 +136,15 @@
     }
 
     @media (max-width: 520px) {
+      .pubToolbar { gap: 10px; }
       .pubTab { padding: 6px 12px; font-size: 12px; }
+      .modeBtn { padding: 5px 12px; font-size: 12px; }
       .paperTitle > .titleText { font-size: 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pubTab, .modeBtn { transition: none; }
+      .pubTab:hover { transform: none; }
     }
   </style>
 </head>
@@ -122,16 +197,28 @@
         <span class="sectionRule" aria-hidden="true"></span>
       </div>
 
-      <div class="pubTabs" role="tablist" aria-label="Publication categories">
-        <button class="pubTab" type="button" role="tab" id="tab-conf" aria-controls="panel-conf" aria-selected="true">
-          Conference / Workshop
-        </button>
-        <button class="pubTab" type="button" role="tab" id="tab-journal" aria-controls="panel-journal" aria-selected="false">
-          Journal
-        </button>
-        <button class="pubTab" type="button" role="tab" id="tab-preprint" aria-controls="panel-preprint" aria-selected="false">
-          Preprint
-        </button>
+      <!--
+        Scope control: papers marked data-selected="true" appear under "Selected";
+        every paper appears under "All". To promote or demote a paper, flip that one
+        attribute on its <article class="paper"> element — no JS changes needed.
+      -->
+      <div class="pubToolbar">
+        <div class="pubTabs" role="tablist" aria-label="Publication categories">
+          <button class="pubTab" type="button" role="tab" id="tab-conf" aria-controls="panel-conf" aria-selected="true">
+            Conference / Workshop <span class="count">0</span>
+          </button>
+          <button class="pubTab" type="button" role="tab" id="tab-journal" aria-controls="panel-journal" aria-selected="false">
+            Journal <span class="count">0</span>
+          </button>
+          <button class="pubTab" type="button" role="tab" id="tab-preprint" aria-controls="panel-preprint" aria-selected="false">
+            Preprint <span class="count">0</span>
+          </button>
+        </div>
+
+        <div class="modeToggle" role="group" aria-label="How many papers to list">
+          <button class="modeBtn" type="button" data-mode="selected" aria-pressed="true">Selected</button>
+          <button class="modeBtn" type="button" data-mode="all" aria-pressed="false">All</button>
+        </div>
       </div>
 
       <!-- ============ Conference / Workshop ============ -->
@@ -150,7 +237,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-selected="true">
             <div>
             <div class="paperTitle">
                 <a href="https://openreview.net/forum?id=17UDRTRLmp" target="_blank" rel="noopener">
@@ -189,7 +276,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-selected="true">
             <div>
             <div class="paperTitle">
                 <a href="https://proceedings.mlr.press/v267/kim25t" target="_blank" rel="noopener">
@@ -241,6 +328,8 @@
             </div>
         </article>
 
+        <p class="pubEmpty" hidden>Nothing selected in this category. Switch to All to see every paper.</p>
+
       </div>
 
       <!-- ============ Journal ============ -->
@@ -258,8 +347,8 @@
             <p class="paperDesc"><a href="https://doi.org/10.1016/j.neunet.2026.109589" target="_blank" rel="noopener">[PDF]</a></p>
             </div>
         </article>
-        
-        <article class="paper">
+
+        <article class="paper" data-selected="true">
             <div>
             <div class="paperTitle">
                 <a href="https://openreview.net/pdf?id=dHljjaNHh1" target="_blank" rel="noopener">
@@ -272,7 +361,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-selected="true">
             <div>
             <div class="paperTitle">
                 <a href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">
@@ -326,7 +415,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-selected="true">
             <div>
             <div class="paperTitle">
                 <a href="https://doi.org/10.1016/j.neunet.2022.07.027" target="_blank" rel="noopener">
@@ -339,12 +428,14 @@
             </div>
         </article>
 
+        <p class="pubEmpty" hidden>Nothing selected in this category. Switch to All to see every paper.</p>
+
       </div>
 
       <!-- ============ Preprint ============ -->
       <div class="researchList pubPanel" id="panel-preprint" role="tabpanel" aria-labelledby="tab-preprint" hidden>
 
-        <article class="paper">
+        <article class="paper" data-selected="true">
             <div>
             <div class="paperTitle">
                 <span class="titleText">Deep Barycentric Regression for Optimal Transport Map Estimation and its Statistical Optimality</span>
@@ -366,7 +457,7 @@
             </div>
         </article> -->
 
-        <article class="paper">
+        <article class="paper" data-selected="true">
             <div>
             <div class="paperTitle">
                 <span class="titleText">What Drives the Inlier-Memorization Effect? A Theory of Outlier Detection via Early Training Dynamics</span>
@@ -376,7 +467,7 @@
             <p class="paperDesc"></p>
             </div>
         </article>
-        
+
         <!-- <article class="paper">
             <div>
             <div class="paperTitle">
@@ -399,7 +490,7 @@
             </div>
         </article>
 
-        <article class="paper">
+        <article class="paper" data-selected="true">
             <div>
             <div class="paperTitle">
                 <a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">
@@ -423,6 +514,8 @@
             </div>
         </article> -->
 
+        <p class="pubEmpty" hidden>Nothing selected in this category. Switch to All to see every paper.</p>
+
       </div>
 
       <!-- <div class="footer">
@@ -436,26 +529,94 @@
   <script>
     (function () {
       var tabs = Array.prototype.slice.call(document.querySelectorAll('.pubTab'));
+      var modeBtns = Array.prototype.slice.call(document.querySelectorAll('.modeBtn'));
+      var mode = 'selected';
+
+      function panelOf(tab) {
+        return document.getElementById(tab.getAttribute('aria-controls'));
+      }
+
+      function papersIn(panel) {
+        return Array.prototype.slice.call(panel.querySelectorAll('.paper'));
+      }
+
+      function visibleCount(tab) {
+        return Number(tab.querySelector('.count').textContent) || 0;
+      }
+
+      /* Show/hide papers per scope, refresh counts, and mark empty categories. */
+      function applyScope() {
+        tabs.forEach(function (tab) {
+          var panel = panelOf(tab);
+          var shown = 0;
+
+          papersIn(panel).forEach(function (paper) {
+            var keep = mode === 'all' || paper.getAttribute('data-selected') === 'true';
+            paper.hidden = !keep;
+            if (keep) shown++;
+          });
+
+          tab.querySelector('.count').textContent = shown;
+          tab.disabled = shown === 0;
+
+          var empty = panel.querySelector('.pubEmpty');
+          if (empty) empty.hidden = shown > 0;
+        });
+      }
 
       function select(tab) {
         tabs.forEach(function (t) {
           var on = t === tab;
           t.setAttribute('aria-selected', on ? 'true' : 'false');
-          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+          panelOf(t).hidden = !on;
         });
       }
 
+      function current() {
+        return tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0] || tabs[0];
+      }
+
+      function setMode(next) {
+        mode = next;
+        modeBtns.forEach(function (b) {
+          b.setAttribute('aria-pressed', b.getAttribute('data-mode') === mode ? 'true' : 'false');
+        });
+        applyScope();
+
+        /* Keep the open tab if it still has papers; otherwise fall back to the first that does. */
+        var open = current();
+        if (visibleCount(open) === 0) {
+          var fallback = tabs.filter(function (t) { return visibleCount(t) > 0; })[0];
+          if (fallback) open = fallback;
+        }
+        select(open);
+      }
+
       tabs.forEach(function (tab, i) {
-        tab.addEventListener('click', function () { select(tab); });
+        tab.addEventListener('click', function () {
+          if (!tab.disabled) select(tab);
+        });
         tab.addEventListener('keydown', function (e) {
           var step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
           if (!step) return;
           e.preventDefault();
-          var next = tabs[(i + step + tabs.length) % tabs.length];
-          next.focus();
-          select(next);
+
+          /* Walk to the next tab that has papers in the current scope. */
+          var j = i;
+          for (var k = 0; k < tabs.length; k++) {
+            j = (j + step + tabs.length) % tabs.length;
+            if (!tabs[j].disabled) break;
+          }
+          tabs[j].focus();
+          select(tabs[j]);
         });
       });
+
+      modeBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () { setMode(btn.getAttribute('data-mode')); });
+      });
+
+      setMode('selected');
     })();
   </script>
 </body>
