@@ -183,11 +183,29 @@
     }
 
     @media (max-width: 520px) {
-      .pubToolbar { gap: 10px; }
-      .pubTab { padding: 6px 12px; font-size: 12px; }
+      /* Selected/All toggle on its own row; category tabs scroll sideways below it */
+      .pubToolbar { flex-direction: column; align-items: stretch; gap: 10px; }
+      .modeToggle { order: -1; align-self: flex-start; margin-left: 0; }
+      .pubTabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin: 0 -16px;
+        padding: 2px 16px;
+      }
+      .pubTabs::-webkit-scrollbar { display: none; }
+      .pubTab { flex: 0 0 auto; white-space: nowrap; padding: 6px 12px; font-size: 12px; }
       .modeBtn { padding: 5px 12px; font-size: 12px; }
-      .fieldToolbar { gap: 6px; }
-      .fieldBtn { padding: 5px 10px; font-size: 12px; }
+
+      /* "Research area" label on its own line, buttons below */
+      .fieldToolbar { gap: 6px; margin-top: -2px; }
+      .fieldLabel { flex-basis: 100%; margin: 0 0 2px; }
+      .fieldBtn { padding: 5px 10px; font-size: 12px; white-space: nowrap; }
+
+      /* keep long titles / venues / URLs from pushing past the screen edge */
+      .paper, .paper > div, .paperTitle { min-width: 0; }
+      .paperTitle a, .paperTitle .titleText, .paperVenue, .paperAuthors { overflow-wrap: anywhere; }
       .paperTitle > .titleText { font-size: 15px; }
     }
 
@@ -602,7 +620,7 @@
 
       <div class="serviceList">
         <p><b>Area Chair:</b> ICLR (2027~)</p>
-        <p><b>Conference Reviewer:</b> NeurIPS, ICML, ICLR</p>
+        <p><b>Conference Reviewer:</b> NeurIPS, ICML, ICLR, AISTATS</p>
       </div>
     </section>
     
