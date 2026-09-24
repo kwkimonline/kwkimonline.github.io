@@ -1,6 +1,3 @@
-`index.html` 전문입니다.
-
-```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,6 +24,8 @@
       --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
                    "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif;
       --font-display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+      --font-name: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", Arial, sans-serif;
     }
 
     body,
@@ -39,13 +38,12 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* name */
+    /* name — Apple system / Helvetica Neue */
     .page .name,
     .header .name {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-optical-sizing: auto;
-      letter-spacing: -.012em;
+      font-family: var(--font-name);
+      font-weight: 700;
+      letter-spacing: -.022em;
     }
 
     /* section headings: Publications, Academic Services */
@@ -259,8 +257,9 @@
     .paperBadge.best { background: #e8f0ea; color: var(--accent); }
 
     .paperRate {
-      color: var(--muted);
+      color: var(--ink);
       font-size: 12.5px;
+      font-weight: 700;
       font-variant-numeric: tabular-nums;
     }
 
@@ -438,18 +437,12 @@
         Drop the .paperRate span if you don't want the numbers.
         <span class="paperBadge best"> gives the green variant (best paper, etc.).
 
-        Link row — replaces the old [PDF] line, add only the links that exist:
+        Link row — no "paper" link here on purpose: the title already links
+        to the paper. Use this only for code / project page / poster.
+        Copy the commented-out block on "Fair Clustering via Alignment"
+        and fill in the URL.
 
-          <p class="paperLinks">
-            <a class="paperLink" href="…" target="_blank" rel="noopener">
-              <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            <a class="paperLink" href="…" target="_blank" rel="noopener">
-              <svg aria-hidden="true"><use href="#i-code"/></svg>code <span class="stars">★ 47</span></a>
-            <a class="paperLink" href="…" target="_blank" rel="noopener">
-              <svg aria-hidden="true"><use href="#i-globe"/></svg>project page</a>
-          </p>
-
-        Icons available: #i-paper  #i-code  #i-globe  #i-poster
+        Icons available: #i-code  #i-globe  #i-poster  #i-paper
         ---------------------------------------------------------------------
       -->
 
@@ -500,12 +493,12 @@
             <!-- TODO: confirm the label and fill in the real acceptance numbers -->
             <p class="paperHonor">
               <span class="paperBadge">Spotlight Presentation</span>
-              <span class="paperRate">(292/7900=3.70%)</span>
+              <span class="paperRate">(000/00000=0.00%)</span>
             </p>
           </div>
         </article>
 
-        <article class="paper" data-selected="true" data-year="2026" data-field="llm">
+        <article class="paper" data-selected="true" data-year="2026" data-field="llm trustworthy">
           <div>
             <div class="paperTitle">
               <span class="titleText">DoG: Sniffing Out Overconfidence in LLM Agents via Post-hoc Trajectory Restructuring</span>
@@ -524,10 +517,6 @@
               <span class="paperVenue"> · ICML 2026 workshop FAGEN (Failure Modes in Agentic AI) </span>
             </div>
             <p class="paperAuthors">Seoyoung Choi, Minseok Ko, Hyunseok Lee, <b>Kunwoong Kim</b>, Woomin Song, Chanseok Jeon, Jinwoo Shin </p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://arxiv.org/pdf/2606.14106" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -540,10 +529,6 @@
               <span class="paperVenue"> · ICLR 2026</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>*, Kyungseon Lee*, Jihu Lee, Dongyoon Yang, Yongdai Kim (*: co-first author)</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://openreview.net/forum?id=17UDRTRLmp" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -556,10 +541,6 @@
               <span class="paperVenue"> · ICLR 2026</span>
             </div>
             <p class="paperAuthors">Jihu Lee, <b>Kunwoong Kim</b>, Sehyun Park, Insung Kong, Dongyoon Yang, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://openreview.net/pdf?id=sIjFXzEOOH" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -572,10 +553,6 @@
               <span class="paperVenue"> · AAAI 2026</span>
             </div>
             <p class="paperAuthors">Jinwon Park, <b>Kunwoong Kim</b>, Jihu Lee, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://arxiv.org/abs/2602.21509" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -588,14 +565,12 @@
               <span class="paperVenue"> · ICML 2025</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Jihu Lee, Sangchul Park, Yongdai Kim</p>
+            <!-- code/project 링크가 생기면 주석을 풀고 URL만 채우세요
             <p class="paperLinks">
-              <a class="paperLink" href="https://proceedings.mlr.press/v267/kim25t" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-              <!-- code 링크가 있으면 주석을 풀고 URL만 채우세요
               <a class="paperLink" href="https://github.com/…" target="_blank" rel="noopener">
                 <svg aria-hidden="true"><use href="#i-code"/></svg>code</a>
-              -->
             </p>
+            -->
           </div>
         </article>
 
@@ -608,10 +583,6 @@
               <span class="paperVenue"> · ICML 2024</span>
             </div>
             <p class="paperAuthors">Dongha Kim, Jaesung Hwang, Jongjin Lee, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://proceedings.mlr.press/v235/kim24h.html" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -624,10 +595,6 @@
               <span class="paperVenue"> · AAAI 2024</span>
             </div>
             <p class="paperAuthors">Dongha Kim, Yongchan Choi, <b>Kunwoong Kim</b>, Ilsang Ohn, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://ojs.aaai.org/index.php/AAAI/article/view/29209" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -640,10 +607,6 @@
               <span class="paperVenue"> · ICML 2022</span>
             </div>
             <p class="paperAuthors">Dongha Kim, <b>Kunwoong Kim</b>, Insung Kong, Ilsang Ohn, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://proceedings.mlr.press/v162/kim22b" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -663,10 +626,6 @@
               <span class="paperVenue"> · Neural Networks 2026</span>
             </div>
             <p class="paperAuthors">Yuha Park, <b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://doi.org/10.1016/j.neunet.2026.109589" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -679,10 +638,6 @@
               <span class="paperVenue"> · Transactions on Machine Learning Research (TMLR) 2025</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://openreview.net/forum?id=dHljjaNHh1" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -695,10 +650,6 @@
               <span class="paperVenue"> · IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2025</span>
             </div>
             <p class="paperAuthors">Insung Kong*, <b>Kunwoong Kim</b>*, Yongdai Kim (*: co-first author)</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -711,10 +662,6 @@
               <span class="paperVenue"> · Journal of Artificial Intelligence Research and Applications 2024</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://www.e-jara.org/journal/view.html?pn=vol&uid=1522&vmd=Full" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -727,10 +674,6 @@
               <span class="paperVenue"> · Journal of Artificial Intelligence Research and Applications 2024</span>
             </div>
             <p class="paperAuthors">Dongha Kim, Yongchan Choi, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -743,10 +686,6 @@
               <span class="paperVenue"> · Statistical Analysis and Data Mining 2023</span>
             </div>
             <p class="paperAuthors">Seonghyeon Kim, Sara Kim, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://onlinelibrary.wiley.com/doi/10.1002/sam.11616" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -759,10 +698,6 @@
               <span class="paperVenue"> · Neural Networks 2022</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Ilsang Ohn, Sara Kim, Yongdai Kim</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://doi.org/10.1016/j.neunet.2022.07.027" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -812,10 +747,6 @@
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
             <p class="paperAuthors">Jihu Lee*, <b>Kunwoong Kim</b>*, Hankyo Jeong, Yongdai Kim (*: co-first author)</p>
-            <p class="paperLinks">
-              <a class="paperLink" href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
-            </p>
           </div>
         </article>
 
@@ -1085,6 +1016,3 @@
   </script>
 </body>
 </html>
-```
-
-붙여넣기 후 두 군데만 확인하세요 — Deep Barycentric의 `(000/00000=0.00%)` 실제 수치, 그리고 배지 라벨이 Spotlight가 맞는지.
