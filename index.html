@@ -9,16 +9,22 @@
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
     /* ===================== Typography =====================
-       Apple system font (SF Pro on Mac/iPhone/iPad) for the body text
-       and the section headings. No webfont is loaded: each platform
-       falls back to its own UI face — Segoe UI on Windows, Roboto on
-       Android — so the page stays fast and never flashes.
+       Apple system font (SF Pro on Mac/iPhone/iPad) for the body text,
+       the paper list and the section headings. No extra webfont is
+       loaded here; each platform falls back to its own UI face —
+       Segoe UI on Windows, Roboto on Android.
 
-       The name (<h1 class="name">) is left alone on purpose and keeps
-       whatever assets/style.css gives it.
+       The name keeps its original "Newsreader" serif: assets/style.css
+       declares font-family on .name directly, so the body rule below
+       never reaches it.
 
-       These rules sit after assets/style.css so they win on source order.
-       To revert, delete this whole block.
+       These rules sit after assets/style.css so they win on source
+       order. To revert, delete this whole block.
+
+       Optional: assets/style.css still @imports DM Sans, which nothing
+       uses any more. Trimming it to Newsreader alone saves one font
+       download:
+         @import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap");
        ====================================================== */
     :root {
       --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
@@ -36,21 +42,13 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* The name keeps whatever assets/style.css declares for it.
-       If style.css has NO font-family on .name, the name inherits from
-       body and would follow the rule above — in that case uncomment this
-       and put the original family in. */
-    /*
-    .page .name,
-    .header .name { font-family: <원래 폰트>; }
-    */
-
-    /* section headings: Publications, Academic Services */
-    .page .sectionHeading h2,
+    /* section headings: Publications, Academic Services
+       (overrides the Newsreader rule in assets/style.css) */
+    .page .section h2,
     .section .sectionHeading h2 {
       font-family: var(--font-apple);
       font-weight: 700;
-      letter-spacing: -.021em;
+      letter-spacing: -.022em;
     }
 
     /* Toolbar: category tabs + Selected/All scope toggle */
