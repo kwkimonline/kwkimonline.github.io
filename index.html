@@ -1,3 +1,6 @@
+`index.html` 전문입니다.
+
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,8 +8,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="description" content="Kunwoong Kim — postdoctoral researcher at KAIST AI working on trustworthy AI, vision-language models, and machine learning theory."/>
   <title>Kunwoong Kim</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"/>
+
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
+    /* ===================== Typography =====================
+       Body / UI : Inter          (Google Fonts)
+       Name + section headings : Newsreader (Google Fonts, serif)
+
+       These rules sit after assets/style.css on purpose, so they
+       win on source order. To revert, delete this block and the two
+       <link> tags for fonts.googleapis.com above.
+       ====================================================== */
+    :root {
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif;
+      --font-display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+    }
+
+    body,
+    .page,
+    .page input,
+    .page textarea,
+    .page select {
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* name */
+    .page .name,
+    .header .name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-optical-sizing: auto;
+      letter-spacing: -.012em;
+    }
+
+    /* section headings: Publications, Academic Services */
+    .page .sectionHeading h2,
+    .section .sectionHeading h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-optical-sizing: auto;
+      letter-spacing: -.008em;
+    }
+
     /* Toolbar: category tabs + Selected/All scope toggle */
     .pubToolbar {
       display: flex;
@@ -182,6 +232,85 @@
       line-height: 1.45;
     }
 
+    /* ---------- Honor badge (Spotlight / Oral / Best paper …) ---------- */
+    .paperHonor {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 9px;
+      margin: 6px 0 0;
+    }
+
+    .paperBadge {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: 999px;
+      background: #fcf1cf;
+      color: #8a6512;
+      font-size: 12.5px;
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: .01em;
+      white-space: nowrap;
+    }
+
+    /* variants, in case you want to differentiate later */
+    .paperBadge.oral { background: #fcf1cf; color: #8a6512; }
+    .paperBadge.best { background: #e8f0ea; color: var(--accent); }
+
+    .paperRate {
+      color: var(--muted);
+      font-size: 12.5px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ---------- Icon link row (paper · code · project page) ---------- */
+    .paperLinks {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 16px;
+      margin: 7px 0 0;
+    }
+
+    .paperLink {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.5;
+      text-decoration: none;
+    }
+
+    .paperLink:hover { text-decoration: underline; }
+
+    .paperLink svg {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .paperLink .stars {
+      color: var(--muted);
+      font-size: 12.5px;
+      font-variant-numeric: tabular-nums;
+      text-decoration: none;
+    }
+
+    .iconSprite {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
     @media (max-width: 520px) {
       /* Selected/All toggle on its own row; category tabs scroll sideways below it */
       .pubToolbar { flex-direction: column; align-items: stretch; gap: 10px; }
@@ -207,6 +336,9 @@
       .paper, .paper > div, .paperTitle { min-width: 0; }
       .paperTitle a, .paperTitle .titleText, .paperVenue, .paperAuthors { overflow-wrap: anywhere; }
       .paperTitle > .titleText { font-size: 15px; }
+
+      .paperBadge { font-size: 12px; padding: 3px 10px; }
+      .paperLinks { gap: 6px 14px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -216,6 +348,23 @@
   </style>
 </head>
 <body>
+
+  <!-- icon sprite for the paper link rows -->
+  <svg class="iconSprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-paper" viewBox="0 0 24 24">
+      <path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>
+    </symbol>
+    <symbol id="i-code" viewBox="0 0 24 24">
+      <path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/>
+    </symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18-2.5-2.7-2.5-15.3 0-18z"/>
+    </symbol>
+    <symbol id="i-poster" viewBox="0 0 24 24">
+      <rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>
+    </symbol>
+  </svg>
+
   <main class="page">
 
     <!-- Introduction -->
@@ -277,7 +426,34 @@
         To assign a research area, set data-field="llm", "trustworthy", or "ml".
         Multiple areas are also possible, e.g. data-field="llm trustworthy".
         data-year only drives the ordering of the merged Selected list.
+
+        ---------------------------------------------------------------------
+        Honor badge — put it right after <p class="paperAuthors">:
+
+          <p class="paperHonor">
+            <span class="paperBadge">Spotlight Presentation</span>
+            <span class="paperRate">(536/23918=2.24%)</span>
+          </p>
+
+        Drop the .paperRate span if you don't want the numbers.
+        <span class="paperBadge best"> gives the green variant (best paper, etc.).
+
+        Link row — replaces the old [PDF] line, add only the links that exist:
+
+          <p class="paperLinks">
+            <a class="paperLink" href="…" target="_blank" rel="noopener">
+              <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            <a class="paperLink" href="…" target="_blank" rel="noopener">
+              <svg aria-hidden="true"><use href="#i-code"/></svg>code <span class="stars">★ 47</span></a>
+            <a class="paperLink" href="…" target="_blank" rel="noopener">
+              <svg aria-hidden="true"><use href="#i-globe"/></svg>project page</a>
+          </p>
+
+        Icons available: #i-paper  #i-code  #i-globe  #i-poster
+        ---------------------------------------------------------------------
       -->
+
+
 
       <div class="pubToolbar">
         <div class="pubTabs" role="tablist" aria-label="Publication categories">
@@ -314,6 +490,31 @@
       <!-- ============ Conference / Workshop ============ -->
       <div class="researchList pubPanel" id="panel-conf" role="tabpanel" aria-labelledby="tab-conf" hidden>
 
+        <article class="paper" data-selected="true" data-year="2026" data-field="ml">
+          <div>
+            <div class="paperTitle">
+              <span class="titleText">Deep Barycentric Regression for Optimal Transport Map Estimation and its Statistical Optimality</span>
+              <span class="paperVenue"> · NeurIPS (2026)</span>
+            </div>
+            <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
+            <!-- TODO: confirm the label and fill in the real acceptance numbers -->
+            <p class="paperHonor">
+              <span class="paperBadge">Spotlight Presentation</span>
+              <span class="paperRate">(292/7900=3.70%)</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="paper" data-selected="true" data-year="2026" data-field="llm">
+          <div>
+            <div class="paperTitle">
+              <span class="titleText">DoG: Sniffing Out Overconfidence in LLM Agents via Post-hoc Trajectory Restructuring</span>
+              <span class="paperVenue"> · NeurIPS (2026)</span>
+            </div>
+            <p class="paperAuthors">Hyunjun Jeon, Dongha Lim, <b>Kunwoong Kim</b>, Daewon Choi, Jinwoo Shin</p>
+          </div>
+        </article>
+
         <article class="paper" data-selected="true" data-year="2026" data-field="llm">
           <div>
             <div class="paperTitle">
@@ -323,7 +524,10 @@
               <span class="paperVenue"> · ICML 2026 workshop FAGEN (Failure Modes in Agentic AI) </span>
             </div>
             <p class="paperAuthors">Seoyoung Choi, Minseok Ko, Hyunseok Lee, <b>Kunwoong Kim</b>, Woomin Song, Chanseok Jeon, Jinwoo Shin </p>
-            <p class="paperDesc"><a href="https://arxiv.org/pdf/2606.14106" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://arxiv.org/pdf/2606.14106" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -336,7 +540,10 @@
               <span class="paperVenue"> · ICLR 2026</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>*, Kyungseon Lee*, Jihu Lee, Dongyoon Yang, Yongdai Kim (*: co-first author)</p>
-            <p class="paperDesc"><a href="https://openreview.net/forum?id=17UDRTRLmp" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://openreview.net/forum?id=17UDRTRLmp" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -349,7 +556,10 @@
               <span class="paperVenue"> · ICLR 2026</span>
             </div>
             <p class="paperAuthors">Jihu Lee, <b>Kunwoong Kim</b>, Sehyun Park, Insung Kong, Dongyoon Yang, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://openreview.net/pdf?id=sIjFXzEOOH" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://openreview.net/pdf?id=sIjFXzEOOH" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -362,7 +572,10 @@
               <span class="paperVenue"> · AAAI 2026</span>
             </div>
             <p class="paperAuthors">Jinwon Park, <b>Kunwoong Kim</b>, Jihu Lee, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://arxiv.org/abs/2602.21509" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://arxiv.org/abs/2602.21509" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -375,7 +588,14 @@
               <span class="paperVenue"> · ICML 2025</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Jihu Lee, Sangchul Park, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://proceedings.mlr.press/v267/kim25t" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://proceedings.mlr.press/v267/kim25t" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+              <!-- code 링크가 있으면 주석을 풀고 URL만 채우세요
+              <a class="paperLink" href="https://github.com/…" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-code"/></svg>code</a>
+              -->
+            </p>
           </div>
         </article>
 
@@ -388,7 +608,10 @@
               <span class="paperVenue"> · ICML 2024</span>
             </div>
             <p class="paperAuthors">Dongha Kim, Jaesung Hwang, Jongjin Lee, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://proceedings.mlr.press/v235/kim24h.html" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://proceedings.mlr.press/v235/kim24h.html" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -401,7 +624,10 @@
               <span class="paperVenue"> · AAAI 2024</span>
             </div>
             <p class="paperAuthors">Dongha Kim, Yongchan Choi, <b>Kunwoong Kim</b>, Ilsang Ohn, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/29209" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://ojs.aaai.org/index.php/AAAI/article/view/29209" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -414,7 +640,10 @@
               <span class="paperVenue"> · ICML 2022</span>
             </div>
             <p class="paperAuthors">Dongha Kim, <b>Kunwoong Kim</b>, Insung Kong, Ilsang Ohn, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://proceedings.mlr.press/v162/kim22b" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://proceedings.mlr.press/v162/kim22b" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -434,7 +663,10 @@
               <span class="paperVenue"> · Neural Networks 2026</span>
             </div>
             <p class="paperAuthors">Yuha Park, <b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://doi.org/10.1016/j.neunet.2026.109589" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://doi.org/10.1016/j.neunet.2026.109589" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -447,7 +679,10 @@
               <span class="paperVenue"> · Transactions on Machine Learning Research (TMLR) 2025</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://openreview.net/forum?id=dHljjaNHh1" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://openreview.net/forum?id=dHljjaNHh1" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -460,7 +695,10 @@
               <span class="paperVenue"> · IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2025</span>
             </div>
             <p class="paperAuthors">Insung Kong*, <b>Kunwoong Kim</b>*, Yongdai Kim (*: co-first author)</p>
-            <p class="paperDesc"><a href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://ieeexplore.ieee.org/document/10874180" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -473,7 +711,10 @@
               <span class="paperVenue"> · Journal of Artificial Intelligence Research and Applications 2024</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Jongjin Lee, Minwoo Chae, Sangchul Park, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://www.e-jara.org/journal/view.html?pn=vol&uid=1522&vmd=Full" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://www.e-jara.org/journal/view.html?pn=vol&uid=1522&vmd=Full" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -486,7 +727,10 @@
               <span class="paperVenue"> · Journal of Artificial Intelligence Research and Applications 2024</span>
             </div>
             <p class="paperAuthors">Dongha Kim, Yongchan Choi, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://www.e-jara.org/journal/view.html?pn=search&uid=1508&vmd=Full" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -499,7 +743,10 @@
               <span class="paperVenue"> · Statistical Analysis and Data Mining 2023</span>
             </div>
             <p class="paperAuthors">Seonghyeon Kim, Sara Kim, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://onlinelibrary.wiley.com/doi/10.1002/sam.11616" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://onlinelibrary.wiley.com/doi/10.1002/sam.11616" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -512,7 +759,10 @@
               <span class="paperVenue"> · Neural Networks 2022</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Ilsang Ohn, Sara Kim, Yongdai Kim</p>
-            <p class="paperDesc"><a href="https://doi.org/10.1016/j.neunet.2022.07.027" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://doi.org/10.1016/j.neunet.2022.07.027" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -523,28 +773,6 @@
       <!-- ============ Preprint ============ -->
       <div class="researchList pubPanel" id="panel-preprint" role="tabpanel" aria-labelledby="tab-preprint" hidden>
 
-        <article class="paper" data-selected="true" data-year="2026" data-field="ml">
-          <div>
-            <div class="paperTitle">
-              <span class="titleText">Deep Barycentric Regression for Optimal Transport Map Estimation and its Statistical Optimality</span>
-              <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors"><b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
-            <p class="paperDesc"></p>
-          </div>
-        </article>
-
-        <!-- <article class="paper" data-year="2026" data-field="llm">
-          <div>
-            <div class="paperTitle">
-              <span class="titleText">DoG: Sniffing Out Overconfidence in LLM Agents via Post-hoc Trajectory Restructuring</span>
-              <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors">Hyunjun Jeon, Dongha Lim, <b>Kunwoong Kim</b>, Daewon Choi, Jinwoo Shin</p>
-            <p class="paperDesc"></p>
-          </div>
-        </article> -->
-
         <article class="paper" data-year="2026" data-field="ml">
           <div>
             <div class="paperTitle">
@@ -552,7 +780,6 @@
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Dongha Kim</p>
-            <p class="paperDesc"></p>
           </div>
         </article>
 
@@ -563,7 +790,6 @@
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
             <p class="paperAuthors">Kyungseon Lee, Hankyo Jeong, <b>Kunwoong Kim</b>, Kwanho Lee, Yongdai Kim</p>
-            <p class="paperDesc"></p>
           </div>
         </article> -->
 
@@ -574,7 +800,6 @@
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
             <p class="paperAuthors">Sehyun Park, Yunseop Shin, <b>Kunwoong Kim</b>, Jihu Lee, Yongdai Kim</p>
-            <p class="paperDesc"></p>
           </div>
         </article>
 
@@ -587,7 +812,10 @@
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
             <p class="paperAuthors">Jihu Lee*, <b>Kunwoong Kim</b>*, Hankyo Jeong, Yongdai Kim (*: co-first author)</p>
-            <p class="paperDesc"><a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">[PDF]</a></p>
+            <p class="paperLinks">
+              <a class="paperLink" href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-paper"/></svg>paper</a>
+            </p>
           </div>
         </article>
 
@@ -598,7 +826,6 @@
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
             <p class="paperAuthors">Sehyun Park*, <b>Kunwoong Kim</b>*, Sara Kim, Kyusang Yu, Yongdai Kim (*: co-first author)</p>
-            <p class="paperDesc"></p>
           </div>
         </article>
 
@@ -623,7 +850,7 @@
         <p><b>Conference Reviewer:</b> NeurIPS, ICML, ICLR, AISTATS</p>
       </div>
     </section>
-    
+
   </main>
 
 
@@ -858,3 +1085,6 @@
   </script>
 </body>
 </html>
+```
+
+붙여넣기 후 두 군데만 확인하세요 — Deep Barycentric의 `(000/00000=0.00%)` 실제 수치, 그리고 배지 라벨이 Spotlight가 맞는지.
