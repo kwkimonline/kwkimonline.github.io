@@ -298,6 +298,24 @@
       .paperTitle > a,
       .paperTitle > .titleText { font-size: 15.5px; }
     }
+
+    .publicationHeading { flex-wrap: wrap; gap: 10px 16px; }
+    .publicationHeading .sectionRule { flex: 1; min-width: 40px; width: auto; }
+    .authorLegend {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 3px 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .authorLegend > span { white-space: nowrap; }
+    .authorMark { margin-left: 1px; font-size: .8em; line-height: 0; }
+    @media (max-width: 600px) {
+      .publicationHeading .sectionRule { order: 1; }
+      .authorLegend { order: 2; flex-basis: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -361,8 +379,9 @@
 
     <!-- Research -->
     <section class="section">
-      <div class="sectionHeading">
+      <div class="sectionHeading publicationHeading">
         <h2>Publications</h2>
+        <span class="authorLegend"><span>* Co-first author</span><span>◇ Corresponding author</span></span>
         <span class="sectionRule" aria-hidden="true"></span>
       </div>
 
@@ -429,7 +448,7 @@
               </a>
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
-            <p class="paperAuthors">Minseok Ko*, Hyunseok Lee*, Woomin Song, Beomjun Kim, Jinwoo Shin, <b>Kunwoong Kim</b> (*: co-first author)</p>
+            <p class="paperAuthors">Minseok Ko<sup class="authorMark" title="Co-first author">*</sup>, Hyunseok Lee<sup class="authorMark" title="Co-first author">*</sup>, Woomin Song, Beomjun Kim, Jinwoo Shin, <b>Kunwoong Kim</b><sup class="authorMark" title="Corresponding author">◇</sup></p>
           </div>
         </article>
 
@@ -479,7 +498,7 @@
               </a>
               <span class="paperVenue"> · ICLR 2026</span>
             </div>
-            <p class="paperAuthors"><b>Kunwoong Kim</b>*, Kyungseon Lee*, Jihu Lee, Dongyoon Yang, Yongdai Kim (*: co-first author)</p>
+            <p class="paperAuthors"><b>Kunwoong Kim</b><sup class="authorMark" title="Co-first author">*</sup>, Kyungseon Lee<sup class="authorMark" title="Co-first author">*</sup>, Jihu Lee, Dongyoon Yang, Yongdai Kim</p>
           </div>
         </article>
 
@@ -547,7 +566,7 @@
               </a>
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
-            <p class="paperAuthors">Jihu Lee*, <b>Kunwoong Kim</b>*, Hankyo Jeong, Yongdai Kim (*: co-first author)</p>
+            <p class="paperAuthors">Jihu Lee<sup class="authorMark" title="Co-first author">*</sup>, <b>Kunwoong Kim</b><sup class="authorMark" title="Co-first author">*</sup>, Hankyo Jeong, Yongdai Kim</p>
           </div>
         </article>
 
@@ -557,7 +576,7 @@
               <span class="titleText">Internal Fairness for Artificial Intelligence</span>
               <span class="paperVenue"> · Under review (2026+)</span>
             </div>
-            <p class="paperAuthors">Sehyun Park*, <b>Kunwoong Kim</b>*, Sara Kim, Kyusang Yu, Yongdai Kim (*: co-first author)</p>
+            <p class="paperAuthors">Sehyun Park<sup class="authorMark" title="Co-first author">*</sup>, <b>Kunwoong Kim</b><sup class="authorMark" title="Co-first author">*</sup>, Sara Kim, Kyusang Yu, Yongdai Kim</p>
           </div>
         </article>
 
@@ -599,7 +618,7 @@
               </a>
               <span class="paperVenue"> · IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2025</span>
             </div>
-            <p class="paperAuthors">Insung Kong*, <b>Kunwoong Kim</b>*, Yongdai Kim (*: co-first author)</p>
+            <p class="paperAuthors">Insung Kong<sup class="authorMark" title="Co-first author">*</sup>, <b>Kunwoong Kim</b><sup class="authorMark" title="Co-first author">*</sup>, Yongdai Kim</p>
           </div>
         </article>
 
