@@ -110,13 +110,6 @@
       margin: -6px 0 20px;
     }
 
-    .fieldLabel {
-      margin-right: 4px;
-      color: var(--muted);
-      font-size: 12.5px;
-      font-weight: 600;
-    }
-
     .fieldBtn {
       appearance: none;
       padding: 6px 13px;
@@ -252,9 +245,7 @@
       .modeToggle { margin-left: 0; }
       .modeBtn { padding: 5px 12px; font-size: 12px; }
 
-      /* "Research area" label on its own line, buttons below */
       .fieldToolbar { gap: 6px; margin-top: -2px; }
-      .fieldLabel { flex-basis: 100%; margin: 0 0 2px; }
       .fieldBtn { padding: 5px 10px; font-size: 12px; white-space: nowrap; }
 
       /* keep long titles / venues / URLs from pushing past the screen edge */
@@ -269,6 +260,43 @@
     @media (prefers-reduced-motion: reduce) {
       .modeBtn, .fieldBtn { transition: none; }
       .fieldBtn:hover { transform: none; }
+    }
+
+    /* Publication hierarchy: titles lead, authors recede, venues stay compact. */
+    .paper {
+      padding: 26px 14px;
+    }
+
+    .paperTitle > a,
+    .paperTitle > .titleText {
+      margin-bottom: 9px;
+      font-size: 16.5px;
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: -.012em;
+    }
+
+    .paperAuthors {
+      color: #68736d;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .paperAuthors b {
+      color: #35403b;
+      font-weight: 600;
+    }
+
+    .paperVenue {
+      margin-top: 5px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 520px) {
+      .paper { padding: 22px 8px; }
+      .paperTitle > a,
+      .paperTitle > .titleText { font-size: 15.5px; }
     }
   </style>
 </head>
@@ -355,7 +383,6 @@
       </div>
 
       <div class="fieldToolbar" role="group" aria-label="Filter publications by research area">
-        <span class="fieldLabel">Research area</span>
         <button class="fieldBtn" type="button" data-field-filter="all" aria-pressed="true">All</button>
         <button class="fieldBtn" type="button" data-field-filter="llm" aria-pressed="false">LLM / Agent</button>
         <button class="fieldBtn" type="button" data-field-filter="trustworthy" aria-pressed="false">Trustworthy AI</button>
