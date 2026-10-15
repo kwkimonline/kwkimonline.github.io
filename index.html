@@ -51,7 +51,7 @@
       letter-spacing: -.022em;
     }
 
-    /* Toolbar: category tabs + Selected/All scope toggle */
+    /* Toolbar: Selected/All scope toggle */
     .pubToolbar {
       display: flex;
       flex-wrap: wrap;
@@ -61,71 +61,13 @@
       margin: 0 0 20px;
     }
 
-    /* Publication tabs (shown only in the All scope) */
-    .pubTabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 0;
-    }
-
-    .pubTabs[hidden] { display: none; }
-
-    .pubTab {
-      appearance: none;
-      padding: 7px 15px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--muted);
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 1.4;
-      cursor: pointer;
-      transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
-    }
-
-    .pubTab:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .pubTab[aria-selected="true"] {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .pubTab:focus-visible,
     .modeBtn:focus-visible,
     .fieldBtn:focus-visible {
       outline: 3px solid rgba(40, 93, 76, .24);
       outline-offset: 3px;
     }
 
-    .pubTab .count {
-      margin-left: 6px;
-      font-weight: 500;
-      font-variant-numeric: tabular-nums;
-      opacity: .6;
-    }
-
-    .pubTab[aria-selected="true"] .count { opacity: .75; }
-
-    .pubTab[disabled] {
-      opacity: .4;
-      cursor: default;
-    }
-
-    .pubTab[disabled]:hover {
-      border-color: var(--line);
-      color: var(--muted);
-      transform: none;
-    }
-
-    /* Scope toggle — margin-left:auto keeps it in place when the tabs hide */
+    /* Scope toggle */
     .modeToggle {
       display: inline-flex;
       gap: 2px;
@@ -202,9 +144,7 @@
       color: var(--accent);
     }
 
-    .pubPanel[hidden] { display: none; }
-
-    /* papers filtered out by the scope toggle */
+    /* Papers filtered by scope and research area */
     .paper[hidden] { display: none !important; }
 
     .pubEmpty {
@@ -307,19 +247,9 @@
     }
 
     @media (max-width: 520px) {
-      /* Selected/All toggle on its own row; category tabs scroll sideways below it */
-      .pubToolbar { flex-direction: column; align-items: stretch; gap: 10px; }
-      .modeToggle { order: -1; align-self: flex-start; margin-left: 0; }
-      .pubTabs {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        margin: 0 -16px;
-        padding: 2px 16px;
-      }
-      .pubTabs::-webkit-scrollbar { display: none; }
-      .pubTab { flex: 0 0 auto; white-space: nowrap; padding: 6px 12px; font-size: 12px; }
+      /* Keep the scope toggle compact on smaller screens. */
+      .pubToolbar { justify-content: flex-start; }
+      .modeToggle { margin-left: 0; }
       .modeBtn { padding: 5px 12px; font-size: 12px; }
 
       /* "Research area" label on its own line, buttons below */
@@ -337,8 +267,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .pubTab, .modeBtn, .fieldBtn { transition: none; }
-      .pubTab:hover, .fieldBtn:hover { transform: none; }
+      .modeBtn, .fieldBtn { transition: none; }
+      .fieldBtn:hover { transform: none; }
     }
   </style>
 </head>
@@ -409,54 +339,15 @@
       </div>
 
       <!--
-        Scope toggle:
-          Selected — one merged list of every paper marked data-selected="true",
-                     newest first by data-year; the category tabs are hidden.
-          All      — the three category tabs, each listing everything in it.
-
-        Research-area filter:
-          All / LLM / Agent / Trustworthy AI / ML
-
-        To promote or demote a paper, flip data-selected on its <article class="paper">.
-        To assign a research area, set data-field="llm", "trustworthy", or "ml".
-        Multiple areas are also possible, e.g. data-field="llm trustworthy".
-        data-year only drives the ordering of the merged Selected list.
-
-        ---------------------------------------------------------------------
-        Honor badge — put it right after <p class="paperAuthors">:
-
-          <p class="paperHonor">
-            <span class="paperBadge">Spotlight Presentation</span>
-            <span class="paperRate">(536/23918=2.24%)</span>
-          </p>
-
-        Drop the .paperRate span if you don't want the numbers.
-        <span class="paperBadge best"> gives the green variant (best paper, etc.).
-
-        Link row — no "paper" link here on purpose: the title already links
-        to the paper. Use this only for code / project page / poster.
-        Copy the commented-out block on "Fair Clustering via Alignment"
-        and fill in the URL.
-
-        Icons available: #i-code  #i-globe  #i-poster  #i-paper
-        ---------------------------------------------------------------------
+        All publications share one list, newest first by data-year.
+        Selected shows papers marked data-selected="true"; All shows every paper.
+        Both scopes can be filtered by research area.
+        Set data-field="llm", "trustworthy", or "ml" (multiple values allowed).
+        To promote or demote a paper, change data-selected on its article.
+        Keep author, venue, honor badge, and resource links inside that article.
       -->
 
-
-
       <div class="pubToolbar">
-        <div class="pubTabs" role="tablist" aria-label="Publication categories">
-          <button class="pubTab" type="button" role="tab" id="tab-conf" aria-controls="panel-conf" aria-selected="true">
-            Conference / Workshop <span class="count">0</span>
-          </button>
-          <button class="pubTab" type="button" role="tab" id="tab-journal" aria-controls="panel-journal" aria-selected="false">
-            Journal <span class="count">0</span>
-          </button>
-          <button class="pubTab" type="button" role="tab" id="tab-preprint" aria-controls="panel-preprint" aria-selected="false">
-            Preprint <span class="count">0</span>
-          </button>
-        </div>
-
         <div class="modeToggle" role="group" aria-label="How many papers to list">
           <button class="modeBtn" type="button" data-mode="selected" aria-pressed="true">Selected</button>
           <button class="modeBtn" type="button" data-mode="all" aria-pressed="false">All</button>
@@ -471,13 +362,49 @@
         <button class="fieldBtn" type="button" data-field-filter="ml" aria-pressed="false">ML</button>
       </div>
 
-      <!-- ============ Selected (merged list, filled by the script) ============ -->
-      <div class="researchList pubPanel" id="panel-selected" aria-label="Selected publications">
-        <p class="pubEmpty" hidden>No papers are marked as selected yet. Switch to All to see everything.</p>
-      </div>
+      <div class="researchList" id="publication-list" aria-label="Publications">
 
-      <!-- ============ Conference / Workshop ============ -->
-      <div class="researchList pubPanel" id="panel-conf" role="tabpanel" aria-labelledby="tab-conf" hidden>
+        <article class="paper" data-year="2026" data-field="llm">
+          <div>
+            <div class="paperTitle">
+              <span class="titleText">LayCraft: Crafting Layout Patterns from Language Instructions and Design Rules</span>
+              <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Kiyoung Kwon, Byungwoo Jeon, <b>Kunwoong Kim</b>, Junhoo Lee, Minhyun Lee, Seong-Jin Park, Jinwoo Shin</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2026" data-field="llm">
+          <div>
+            <div class="paperTitle">
+              <span class="titleText">COPS: Active Failure Synthesis for Failure Attribution in Multi-Agent Systems</span>
+              <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Dongha Lim, <b>Kunwoong Kim</b>, Daewon Choi, Hyunjun Jeon, Hyunkyu Kim, Yeeun Yoo, Youngjun Kwak, Jinwoo Shin, Daehee Han</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2026" data-field="llm">
+          <div>
+            <div class="paperTitle">
+              <span class="titleText">What Research Leaves Behind?: Distilling Researcher Guidance into Skills That Shape How Agents Work</span>
+              <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Byungjun Yoon, Woomin Song, Junhoo Lee, Daewon Choi, Yumin Choi, <b>Kunwoong Kim</b>, Jinheon Baek, Jinwoo Shin, Kimin Lee</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2026" data-field="llm trustworthy">
+          <div>
+            <div class="paperTitle">
+              <a href="https://komseok0109.github.io/ATLAS/" target="_blank" rel="noopener">
+                Who's Behind the Text? Robust Model Authorship Attribution
+              </a>
+              <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Minseok Ko*, Hyunseok Lee*, Woomin Song, Beomjun Kim, Jinwoo Shin, <b>Kunwoong Kim</b> (*: co-first author)</p>
+          </div>
+        </article>
 
         <article class="paper" data-selected="true" data-year="2026" data-field="ml">
           <div>
@@ -553,6 +480,60 @@
           </div>
         </article>
 
+        <article class="paper" data-year="2026" data-field="ml">
+          <div>
+            <div class="paperTitle">
+              <a href="https://doi.org/10.1016/j.neunet.2026.109589" target="_blank" rel="noopener">
+                ReLU Integral Probability Metric and its Applications
+              </a>
+              <span class="paperVenue"> · Neural Networks 2026</span>
+            </div>
+            <p class="paperAuthors">Yuha Park, <b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2026" data-field="ml">
+          <div>
+            <div class="paperTitle">
+              <span class="titleText">What Drives the Inlier-Memorization Effect? A Theory of Outlier Detection via Early Training Dynamics</span>
+              <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors"><b>Kunwoong Kim</b>, Dongha Kim</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2026" data-field="ml">
+          <div>
+            <div class="paperTitle">
+              <span class="titleText">Approximating the Posterior Distribution of Bayesian Deep Neural Networks by a Deep Neural Network</span>
+              <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Sehyun Park, Yunseop Shin, <b>Kunwoong Kim</b>, Jihu Lee, Yongdai Kim</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2026" data-field="trustworthy">
+          <div>
+            <div class="paperTitle">
+              <a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">
+                Fair Bayesian Model-based Clustering
+              </a>
+              <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Jihu Lee*, <b>Kunwoong Kim</b>*, Hankyo Jeong, Yongdai Kim (*: co-first author)</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2026" data-field="trustworthy">
+          <div>
+            <div class="paperTitle">
+              <span class="titleText">Internal Fairness for Artificial Intelligence</span>
+              <span class="paperVenue"> · Under review (2026+)</span>
+            </div>
+            <p class="paperAuthors">Sehyun Park*, <b>Kunwoong Kim</b>*, Sara Kim, Kyusang Yu, Yongdai Kim (*: co-first author)</p>
+          </div>
+        </article>
+
         <article class="paper" data-selected="true" data-year="2025" data-field="trustworthy">
           <div>
             <div class="paperTitle">
@@ -568,61 +549,6 @@
                 <svg aria-hidden="true"><use href="#i-code"/></svg>code</a>
             </p>
             -->
-          </div>
-        </article>
-
-        <article class="paper" data-year="2024" data-field="ml">
-          <div>
-            <div class="paperTitle">
-              <a href="https://proceedings.mlr.press/v235/kim24h.html" target="_blank" rel="noopener">
-                ODIM: Outlier Detection via Likelihood of Under-Fitted Generative Models
-              </a>
-              <span class="paperVenue"> · ICML 2024</span>
-            </div>
-            <p class="paperAuthors">Dongha Kim, Jaesung Hwang, Jongjin Lee, <b>Kunwoong Kim</b>, Yongdai Kim</p>
-          </div>
-        </article>
-
-        <article class="paper" data-year="2024" data-field="ml">
-          <div>
-            <div class="paperTitle">
-              <a href="https://ojs.aaai.org/index.php/AAAI/article/view/29209" target="_blank" rel="noopener">
-                IOFM: Using the Interpolation Technique on the Over-Fitted Models to Identify Clean-Annotated Samples
-              </a>
-              <span class="paperVenue"> · AAAI 2024</span>
-            </div>
-            <p class="paperAuthors">Dongha Kim, Yongchan Choi, <b>Kunwoong Kim</b>, Ilsang Ohn, Yongdai Kim</p>
-          </div>
-        </article>
-
-        <article class="paper" data-selected="true" data-year="2022" data-field="trustworthy">
-          <div>
-            <div class="paperTitle">
-              <a href="https://proceedings.mlr.press/v162/kim22b" target="_blank" rel="noopener">
-                Learning Fair Representation with a Parametric Integral Probability Metric
-              </a>
-              <span class="paperVenue"> · ICML 2022</span>
-            </div>
-            <p class="paperAuthors">Dongha Kim, <b>Kunwoong Kim</b>, Insung Kong, Ilsang Ohn, Yongdai Kim</p>
-          </div>
-        </article>
-
-        <p class="pubEmpty" hidden>No papers listed in this category yet.</p>
-
-      </div>
-
-      <!-- ============ Journal ============ -->
-      <div class="researchList pubPanel" id="panel-journal" role="tabpanel" aria-labelledby="tab-journal" hidden>
-
-        <article class="paper" data-year="2026" data-field="ml">
-          <div>
-            <div class="paperTitle">
-              <a href="https://doi.org/10.1016/j.neunet.2026.109589" target="_blank" rel="noopener">
-                ReLU Integral Probability Metric and its Applications
-              </a>
-              <span class="paperVenue"> · Neural Networks 2026</span>
-            </div>
-            <p class="paperAuthors">Yuha Park, <b>Kunwoong Kim</b>, Insung Kong, Yongdai Kim</p>
           </div>
         </article>
 
@@ -647,6 +573,30 @@
               <span class="paperVenue"> · IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2025</span>
             </div>
             <p class="paperAuthors">Insung Kong*, <b>Kunwoong Kim</b>*, Yongdai Kim (*: co-first author)</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2024" data-field="ml">
+          <div>
+            <div class="paperTitle">
+              <a href="https://proceedings.mlr.press/v235/kim24h.html" target="_blank" rel="noopener">
+                ODIM: Outlier Detection via Likelihood of Under-Fitted Generative Models
+              </a>
+              <span class="paperVenue"> · ICML 2024</span>
+            </div>
+            <p class="paperAuthors">Dongha Kim, Jaesung Hwang, Jongjin Lee, <b>Kunwoong Kim</b>, Yongdai Kim</p>
+          </div>
+        </article>
+
+        <article class="paper" data-year="2024" data-field="ml">
+          <div>
+            <div class="paperTitle">
+              <a href="https://ojs.aaai.org/index.php/AAAI/article/view/29209" target="_blank" rel="noopener">
+                IOFM: Using the Interpolation Technique on the Over-Fitted Models to Identify Clean-Annotated Samples
+              </a>
+              <span class="paperVenue"> · AAAI 2024</span>
+            </div>
+            <p class="paperAuthors">Dongha Kim, Yongchan Choi, <b>Kunwoong Kim</b>, Ilsang Ohn, Yongdai Kim</p>
           </div>
         </article>
 
@@ -689,29 +639,24 @@
         <article class="paper" data-selected="true" data-year="2022" data-field="trustworthy">
           <div>
             <div class="paperTitle">
+              <a href="https://proceedings.mlr.press/v162/kim22b" target="_blank" rel="noopener">
+                Learning Fair Representation with a Parametric Integral Probability Metric
+              </a>
+              <span class="paperVenue"> · ICML 2022</span>
+            </div>
+            <p class="paperAuthors">Dongha Kim, <b>Kunwoong Kim</b>, Insung Kong, Ilsang Ohn, Yongdai Kim</p>
+          </div>
+        </article>
+
+        <article class="paper" data-selected="true" data-year="2022" data-field="trustworthy">
+          <div>
+            <div class="paperTitle">
               <a href="https://doi.org/10.1016/j.neunet.2022.07.027" target="_blank" rel="noopener">
                 SLIDE: A Surrogate Fairness Constraint to ensure Fairness Consistency
               </a>
               <span class="paperVenue"> · Neural Networks 2022</span>
             </div>
             <p class="paperAuthors"><b>Kunwoong Kim</b>, Ilsang Ohn, Sara Kim, Yongdai Kim</p>
-          </div>
-        </article>
-
-        <p class="pubEmpty" hidden>No papers listed in this category yet.</p>
-
-      </div>
-
-      <!-- ============ Preprint ============ -->
-      <div class="researchList pubPanel" id="panel-preprint" role="tabpanel" aria-labelledby="tab-preprint" hidden>
-
-        <article class="paper" data-year="2026" data-field="ml">
-          <div>
-            <div class="paperTitle">
-              <span class="titleText">What Drives the Inlier-Memorization Effect? A Theory of Outlier Detection via Early Training Dynamics</span>
-              <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors"><b>Kunwoong Kim</b>, Dongha Kim</p>
           </div>
         </article>
 
@@ -725,39 +670,7 @@
           </div>
         </article> -->
 
-        <article class="paper" data-year="2026" data-field="ml">
-          <div>
-            <div class="paperTitle">
-              <span class="titleText">Approximating the Posterior Distribution of Bayesian Deep Neural Networks by a Deep Neural Network</span>
-              <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors">Sehyun Park, Yunseop Shin, <b>Kunwoong Kim</b>, Jihu Lee, Yongdai Kim</p>
-          </div>
-        </article>
-
-        <article class="paper" data-year="2026" data-field="trustworthy">
-          <div>
-            <div class="paperTitle">
-              <a href="https://www.arxiv.org/abs/2506.12839" target="_blank" rel="noopener">
-                Fair Bayesian Model-based Clustering
-              </a>
-              <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors">Jihu Lee*, <b>Kunwoong Kim</b>*, Hankyo Jeong, Yongdai Kim (*: co-first author)</p>
-          </div>
-        </article>
-
-        <article class="paper" data-year="2026" data-field="trustworthy">
-          <div>
-            <div class="paperTitle">
-              <span class="titleText">Internal Fairness for Artificial Intelligence</span>
-              <span class="paperVenue"> · Under review (2026+)</span>
-            </div>
-            <p class="paperAuthors">Sehyun Park*, <b>Kunwoong Kim</b>*, Sara Kim, Kyusang Yu, Yongdai Kim (*: co-first author)</p>
-          </div>
-        </article>
-
-        <p class="pubEmpty" hidden>No papers listed in this category yet.</p>
+        <p class="pubEmpty" role="status" hidden>No papers in this research area.</p>
 
       </div>
 
@@ -784,215 +697,51 @@
 
   <script>
     (function () {
-      var tabs = Array.prototype.slice.call(document.querySelectorAll('.pubTab'));
+      var list = document.getElementById('publication-list');
+      var papers = Array.prototype.slice.call(list.querySelectorAll('.paper'));
       var modeBtns = Array.prototype.slice.call(document.querySelectorAll('.modeBtn'));
       var fieldBtns = Array.prototype.slice.call(document.querySelectorAll('.fieldBtn'));
-      var tablist = document.querySelector('.pubTabs');
-      var selPanel = document.getElementById('panel-selected');
-      var selEmpty = selPanel.querySelector('.pubEmpty');
-
+      var empty = list.querySelector('.pubEmpty');
       var mode = 'selected';
       var field = 'all';
 
-      function panelOf(tab) {
-        return document.getElementById(tab.getAttribute('aria-controls'));
-      }
-
-      function papersIn(root) {
-        return Array.prototype.slice.call(root.querySelectorAll('.paper'));
-      }
-
-      function yearOf(paper) {
-        return Number(paper.getAttribute('data-year')) || 0;
-      }
-
-      function matchesField(paper) {
-        if (field === 'all') return true;
-
-        var fields = (paper.getAttribute('data-field') || '').split(/\s+/);
-        return fields.indexOf(field) !== -1;
-      }
-
-      function applyFieldFilter(root) {
-        var papers = papersIn(root);
-        var shown = 0;
-
-        papers.forEach(function (paper) {
-          var visible = matchesField(paper);
-          paper.hidden = !visible;
-
-          if (visible) {
-            shown += 1;
-          }
-        });
-
-        var empty = root.querySelector('.pubEmpty');
-
-        if (empty) {
-          empty.hidden = shown > 0;
-        }
-
-        return shown;
-      }
-
-      /* Merged Selected view: every data-selected paper from all three categories,
-         newest first by data-year, then filtered by research area. */
-      function buildSelected() {
-        papersIn(selPanel).forEach(function (old) {
-          old.remove();
-        });
-
-        var picked = [];
-
-        tabs.forEach(function (tab) {
-          papersIn(panelOf(tab)).forEach(function (paper) {
-            if (paper.getAttribute('data-selected') === 'true') {
-              picked.push({
-                node: paper,
-                year: yearOf(paper),
-                i: picked.length
-              });
-            }
-          });
-        });
-
-        picked.sort(function (a, b) {
-          return b.year - a.year || a.i - b.i;
-        });
-
-        picked.forEach(function (item) {
-          var clone = item.node.cloneNode(true);
-          clone.hidden = false;
-          selPanel.insertBefore(clone, selEmpty);
-        });
-
-        var shown = applyFieldFilter(selPanel);
-
-        selEmpty.textContent = field === 'all'
-          ? 'No papers are marked as selected yet. Switch to All to see everything.'
-          : 'No selected papers in this research area.';
-
-        selEmpty.hidden = shown > 0;
-      }
-
-      function selectTab(tab) {
-        tabs.forEach(function (t) {
-          var on = t === tab;
-
-          t.setAttribute(
-            'aria-selected',
-            on ? 'true' : 'false'
-          );
-
-          panelOf(t).hidden = !on;
-        });
-
-        if (tab) {
-          applyFieldFilter(panelOf(tab));
-        }
-      }
-
-      function currentTab() {
-        return tabs.filter(function (t) {
-          return t.getAttribute('aria-selected') === 'true';
-        })[0] || tabs[0];
-      }
-
-      function updateTabCounts() {
-        tabs.forEach(function (tab) {
-          var papers = papersIn(panelOf(tab));
-          var count = papers.filter(matchesField).length;
-
-          tab.querySelector('.count').textContent = count;
-          tab.disabled = count === 0;
-
-          var empty = panelOf(tab).querySelector('.pubEmpty');
-
-          if (empty) {
-            empty.textContent = field === 'all'
-              ? 'No papers listed in this category yet.'
-              : 'No papers in this publication category and research area.';
-          }
-        });
-      }
+      // Keep the same chronological order in Selected and All.
+      papers.sort(function (a, b) {
+        return Number(b.getAttribute('data-year')) - Number(a.getAttribute('data-year'));
+      });
+      papers.forEach(function (paper) {
+        list.insertBefore(paper, empty);
+      });
 
       function render() {
-        var merged = mode === 'selected';
+        var shown = 0;
 
-        modeBtns.forEach(function (b) {
-          b.setAttribute(
-            'aria-pressed',
-            b.getAttribute('data-mode') === mode ? 'true' : 'false'
-          );
+        modeBtns.forEach(function (btn) {
+          btn.setAttribute('aria-pressed',
+            btn.getAttribute('data-mode') === mode ? 'true' : 'false');
         });
 
-        fieldBtns.forEach(function (b) {
-          b.setAttribute(
-            'aria-pressed',
-            b.getAttribute('data-field-filter') === field ? 'true' : 'false'
-          );
+        fieldBtns.forEach(function (btn) {
+          btn.setAttribute('aria-pressed',
+            btn.getAttribute('data-field-filter') === field ? 'true' : 'false');
         });
 
-        updateTabCounts();
+        papers.forEach(function (paper) {
+          var matchesScope = mode === 'all' || paper.getAttribute('data-selected') === 'true';
+          var fields = (paper.getAttribute('data-field') || '').split(/\s+/);
+          var matchesField = field === 'all' || fields.indexOf(field) !== -1;
+          var visible = matchesScope && matchesField;
+          paper.hidden = !visible;
+          if (visible) shown += 1;
+        });
 
-        tablist.hidden = merged;
-
-        if (merged) {
-          tabs.forEach(function (t) {
-            panelOf(t).hidden = true;
-          });
-
-          buildSelected();
-
-          selPanel.hidden = false;
-          return;
-        }
-
-        selPanel.hidden = true;
-
-        var open = currentTab();
-
-        if (open.disabled) {
-          open = tabs.filter(function (t) {
-            return !t.disabled;
-          })[0] || open;
-        }
-
-        selectTab(open);
+        empty.textContent = mode === 'selected'
+          ? (field === 'all'
+              ? 'No papers are marked as selected yet. Switch to All to see everything.'
+              : 'No selected papers in this research area.')
+          : 'No papers in this research area.';
+        empty.hidden = shown > 0;
       }
-
-      tabs.forEach(function (tab, i) {
-        tab.addEventListener('click', function () {
-          if (!tab.disabled) {
-            selectTab(tab);
-          }
-        });
-
-        tab.addEventListener('keydown', function (e) {
-          var step =
-            e.key === 'ArrowRight' ? 1 :
-            e.key === 'ArrowLeft' ? -1 : 0;
-
-          if (!step) {
-            return;
-          }
-
-          e.preventDefault();
-
-          var j = i;
-
-          for (var k = 0; k < tabs.length; k++) {
-            j = (j + step + tabs.length) % tabs.length;
-
-            if (!tabs[j].disabled) {
-              break;
-            }
-          }
-
-          tabs[j].focus();
-          selectTab(tabs[j]);
-        });
-      });
 
       modeBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
