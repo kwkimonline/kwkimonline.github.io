@@ -404,7 +404,7 @@
         All publications share one list, newest first by data-year.
         Selected shows papers marked data-selected="true"; All shows every paper.
         Both scopes can be filtered by research area.
-        Set data-field="llm", "trustworthy", or "ml" (multiple values allowed).
+        Set data-field="llm", "trustworthy", "ml", or "ai4sci" (multiple values allowed).
         To promote or demote a paper, change data-selected on its article.
         Keep author, venue, honor badge, and resource links inside that article.
       -->
@@ -420,12 +420,13 @@
         <button class="fieldBtn" type="button" data-field-filter="all" aria-pressed="true">All</button>
         <button class="fieldBtn" type="button" data-field-filter="llm" aria-pressed="false">LLM / Agent</button>
         <button class="fieldBtn" type="button" data-field-filter="trustworthy" aria-pressed="false">Trustworthy AI</button>
-        <button class="fieldBtn" type="button" data-field-filter="ml" aria-pressed="false">ML</button>
+        <button class="fieldBtn" type="button" data-field-filter="ml" aria-pressed="false">Fundamental ML</button>
+        <button class="fieldBtn" type="button" data-field-filter="ai4sci" aria-pressed="false">AI4Sci</button>
       </div>
 
       <div class="researchList" id="publication-list" aria-label="Publications">
 
-        <article class="paper" data-year="2026" data-field="llm">
+        <article class="paper" data-year="2026" data-field="ai4sci">
           <div>
             <div class="paperTitle">
               <span class="titleText">LayCraft: Crafting Layout Patterns from Language Instructions and Design Rules</span>
