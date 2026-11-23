@@ -328,6 +328,23 @@
     @media (max-width: 720px) {
       .name { font-size: 30px; }
     }
+    /* Labelled contact links stay compact and wrap as complete items. */
+    .links .iconLink {
+      width: auto;
+      height: auto;
+      min-height: 40px;
+      padding: 7px 12px;
+      gap: 7px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+    .links .iconLink svg { flex: 0 0 17px; }
+    @media (max-width: 520px) {
+      .links .iconLink { min-height: 44px; }
+    }
   </style>
 </head>
 <body>
@@ -369,16 +386,16 @@
 
         <div class="links">
           <a class="iconLink" href="mailto:kwkim.online@gmail.com" aria-label="Email" title="Email">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><span>Email</span>
           </a>
           <a class="iconLink" href="https://drive.google.com/file/d/1QBjgsox12oms3QYXsnSh7Y2X1-PAFdIq/view?usp=sharing" target="_blank" rel="noopener" aria-label="CV (PDF)" title="CV (PDF)">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><span>CV</span>
           </a>
           <a class="iconLink" href="https://scholar.google.com/citations?user=LZ0MCB8AAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 9 9-5 9 5-9 5z"/><path d="M7 12v5c3 2 7 2 10 0v-5M21 9v6"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 9 9-5 9 5-9 5z"/><path d="M7 12v5c3 2 7 2 10 0v-5M21 9v6"/></svg><span>Google Scholar</span>
           </a>
           <a class="iconLink linkedinIcon" href="https://www.linkedin.com/in/kunwoong-kim" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9v9M6 6v.01M10 18v-5a4 4 0 0 1 8 0v5M10 9v9"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9v9M6 6v.01M10 18v-5a4 4 0 0 1 8 0v5M10 9v9"/></svg><span>LinkedIn</span>
           </a>
         </div>
       </div>
